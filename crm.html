@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EduPath — Pro CRM Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  :root { --teal: #0b5c52; --gold: #c8932a; --bg: #f8f9fa; --white: #ffffff; --border: #ececec; --radius: 12px; --text: #2d3436; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); display: flex; height: 100vh; overflow: hidden; }
+
+  /* Sidebar Styles */
+  .sidebar { width: 260px; background: var(--teal); color: #fff; padding: 2rem 1.2rem; display: flex; flex-direction: column; }
+  .logo { font-size: 1.6rem; font-weight: 700; margin-bottom: 2.5rem; padding-left: 0.8rem; }
+  .menu-label { font-size: 0.7rem; font-weight: 700; opacity: 0.5; letter-spacing: 1px; margin: 1.5rem 0 0.5rem 0.8rem; text-transform: uppercase; }
+  .nav-item { padding: 0.8rem 1rem; margin: 2px 0; border-radius: 8px; cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 12px; font-size: 0.9rem; opacity: 0.8; }
+  .nav-item:hover, .nav-item.active { background: rgba(255,255,255,0.1); opacity: 1; }
+  .sub-item { padding-left: 2.8rem; font-size: 0.85rem; }
+
+  /* Main Area */
+  .main-container { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+  header { padding: 1.5rem 2.5rem; background: #fff; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .content { flex: 1; padding: 2.5rem; overflow-y: auto; }
+  .view-section { display: none; }
+  .view-section.active { display: block; animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* UI Components */
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
+  .stat-card { background: #fff; padding: 1.5rem; border-radius: var(--radius); border: 1px solid var(--border); }
+  .stat-num { font-size: 1.8rem; font-weight: 700; color: var(--teal); margin-top: 5px; }
+  
+  .data-card { background: #fff; border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; margin-top: 1rem; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 1rem 1.5rem; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+  th { background: #fcfcfc; color: #a0a0a0; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.5px; }
+  
+  .badge { padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 500; }
+  .status-new { background: #e3f2fd; color: #1976d2; }
+  .status-hot { background: #fff3e0; color: #ef6c00; }
+  .status-done { background: #e8f5e9; color: #2e7d32; }
+
+  /* Charts Container */
+  .charts-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; margin-top: 1rem; }
+
+  /* Drawer */
+  .overlay { display:none; position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 100; justify-content: flex-end; }
+  .drawer { width: 450px; background: #fff; height: 100%; padding: 2.5rem; box-shadow: -5px 0 25px rgba(0,0,0,0.1); overflow-y: auto; }
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="logo">EduPath<span>.</span></div>
+  
+  <div class="menu-label">Main</div>
+  <div class="nav-item active" onclick="showView('leads', this)">📋 Leads</div>
+  <div class="nav-item" onclick="showView('analytics', this)">📊 Analytics</div>
+  <div class="nav-item" onclick="showView('programs', this)">🎓 Programs</div>
+  
+  <div class="menu-label">Team</div>
+  <div class="nav-item sub-item" onclick="showView('my-leads', this)">👤 My Leads</div>
+  <div class="nav-item sub-item" onclick="showView('leads', this)">👥 All Counselors</div>
+
+  <div class="menu-label">Communication</div>
+  <div class="nav-item" onclick="showView('templates', this)">✉️ Email Templates</div>
+</aside>
+
+<div class="main-container">
+  <header>
+    <h2 id="view-title">Leads</h2>
+    <button onclick="loadData()" style="background:var(--teal); color:#fff; border:none; padding:10px 20px; border-radius:8px; cursor:pointer; font-weight:500;">Sync Database</button>
+  </header>
+
+  <div class="content">
+    
+    <section id="view-leads" class="view-section active">
+      <div class="data-card">
+        <table>
+          <thead>
+            <tr><th>Student Name</th><th>City</th><th>Interest</th><th>Status</th><th>Action</th></tr>
+          </thead>
+          <tbody id="leads-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="view-analytics" class="view-section">
+      <div class="stats-grid">
+        <div class="stat-card"><span>Total Leads</span><div id="stat-total" class="stat-num">0</div></div>
+        <div class="stat-card"><span>Contacted</span><div id="stat-hot" class="stat-num">0</div></div>
+        <div class="stat-card"><span>Converted</span><div id="stat-conv" class="stat-num">0</div></div>
+        <div class="stat-card"><span>Conversion %</span><div id="stat-rate" class="stat-num">0%</div></div>
+      </div>
+      <div class="charts-grid">
+        <div class="stat-card"><canvas id="mainChart"></canvas></div>
+        <div class="stat-card"><canvas id="pieChart"></canvas></div>
+      </div>
+    </section>
+
+    <section id="view-programs" class="view-section">
+      <div class="data-card">
+        <table>
+          <thead><tr><th>Program / Field</th><th>Students Opted</th><th>Trend</th></tr></thead>
+          <tbody id="programs-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="view-templates" class="view-section">
+      <div class="stats-grid" style="grid-template-columns: 1fr 1fr;">
+        <div class="stat-card"><h4>Welcome Email</h4><p style="font-size:0.8rem; margin:10px 0;">Sent after first enquiry.</p><button style="padding:5px 10px;">Edit</button></div>
+        <div class="stat-card"><h4>Follow-up Reminder</h4><p style="font-size:0.8rem; margin:10px 0;">Sent 3 days after no response.</p><button style="padding:5px 10px;">Edit</button></div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<div class="overlay" id="drawer-overlay" onclick="closeDrawer(event)">
+  <div class="drawer" onclick="event.stopPropagation()">
+    <h3 id="d-name">Student Profile</h3>
+    <div id="d-info" style="margin:2rem 0; line-height:2;"></div>
+    <hr style="opacity:0.1; margin-bottom:1.5rem;">
+    <label style="font-size:0.7rem; font-weight:700; color:#888;">UPDATE STATUS</label>
+    <select id="d-status" style="width:100%; padding:12px; border-radius:8px; border:1px solid #ddd; margin:8px 0 20px;">
+      <option value="New">New</option>
+      <option value="Contacted">Contacted</option>
+      <option value="Follow-up">Follow-up</option>
+      <option value="Converted">Converted</option>
+    </select>
+    <label style="font-size:0.7rem; font-weight:700; color:#888;">COUNSELLOR NOTES</label>
+    <textarea id="d-notes" style="width:100%; height:120px; padding:12px; border-radius:8px; border:1px solid #ddd; margin-top:8px;"></textarea>
+    <button onclick="saveUpdate()" id="btn-save" style="width:100%; padding:1rem; background:var(--teal); color:#fff; border:none; border-radius:8px; margin-top:1.5rem; font-weight:700; cursor:pointer;">Update Sheet</button>
+  </div>
+</div>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbyk1g9_1VkHyUNo6E0BNy5Bm0ZQuaOy6wj7T9I6AWRZAIWHBekQVx-MiZJ8qyTcHpFY/exec"; 
+let allLeads = [];
+let charts = {};
+
+function showView(viewId, el) {
+  document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+  document.getElementById('view-' + viewId).classList.add('active');
+  document.getElementById('view-title').innerText = el.innerText.replace(/[^\w\s]/gi, '').trim();
+  el.classList.add('active');
+}
+
+async function loadData() {
+  const res = await fetch(API_URL);
+  const data = await res.json();
+  allLeads = data.map(r => ({
+    id: r.rowId, name: r.full_name, phone: r.mobile_number, email: r.email_address,
+    city: r.city, course: r.field_of_study, status: r.status || 'New', notes: r.notes || '', ts: r.timestamp
+  }));
+  renderLeads();
+  renderAnalytics();
+  renderPrograms();
+}
+
+function renderLeads() {
+  document.getElementById('leads-body').innerHTML = allLeads.map(l => `
+    <tr>
+      <td><b>${l.name}</b></td>
+      <td>${l.city}</td>
+      <td>${l.course}</td>
+      <td><span class="badge ${l.status === 'New' ? 'status-new' : l.status === 'Converted' ? 'status-done' : 'status-hot'}">${l.status}</span></td>
+      <td><button onclick="openDrawer(${l.id})" style="padding:5px 12px; cursor:pointer; border-radius:5px; border:1px solid #ddd; background:#fff;">Edit</button></td>
+    </tr>
+  `).join('');
+}
+
+function renderAnalytics() {
+  const stats = {
+    total: allLeads.length,
+    hot: allLeads.filter(x => x.status === 'Contacted').length,
+    conv: allLeads.filter(x => x.status === 'Converted').length
+  };
+  document.getElementById('stat-total').innerText = stats.total;
+  document.getElementById('stat-hot').innerText = stats.hot;
+  document.getElementById('stat-conv').innerText = stats.conv;
+  document.getElementById('stat-rate').innerText = stats.total ? Math.round((stats.conv/stats.total)*100) + "%" : "0%";
+
+  initCharts(stats);
+}
+
+function renderPrograms() {
+  const counts = {};
+  allLeads.forEach(l => counts[l.course] = (counts[l.course] || 0) + 1);
+  document.getElementById('programs-body').innerHTML = Object.entries(counts).map(([name, count]) => `
+    <tr><td>${name}</td><td><b>${count} Students</b></td><td><span style="color:green;">↑ High</span></td></tr>
+  `).join('');
+}
+
+function initCharts(stats) {
+  if(charts.main) charts.main.destroy();
+  if(charts.pie) charts.pie.destroy();
+
+  charts.main = new Chart(document.getElementById('mainChart'), {
+    type: 'line',
+    data: { labels: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'], datasets: [{ label: 'Leads Received', data: [stats.total, 2, 5, 3, 4, 2, 1], borderColor: '#0b5c52', tension: 0.4 }] }
+  });
+
+  charts.pie = new Chart(document.getElementById('pieChart'), {
+    type: 'doughnut',
+    data: { labels: ['New','Contacted','Converted'], datasets: [{ data: [allLeads.length - stats.hot - stats.conv, stats.hot, stats.conv], backgroundColor: ['#e3f2fd', '#fff3e0', '#e8f5e9'] }] }
+  });
+}
+
+let activeId = null;
+function openDrawer(id) {
+  activeId = id;
+  const l = allLeads.find(x => x.id === id);
+  document.getElementById('d-name').innerText = l.name;
+  document.getElementById('d-status').value = l.status;
+  document.getElementById('d-notes').value = l.notes;
+  document.getElementById('d-info').innerHTML = `<b>Phone:</b> ${l.phone}<br><b>Email:</b> ${l.email}<br><b>City:</b> ${l.city}<br><b>Interested in:</b> ${l.course}`;
+  document.getElementById('drawer-overlay').style.display = 'flex';
+}
+
+function closeDrawer(e) { if(!e || e.target.id === 'drawer-overlay') document.getElementById('drawer-overlay').style.display = 'none'; }
+
+async function saveUpdate() {
+  const btn = document.getElementById('btn-save');
+  btn.innerText = "Syncing...";
+  const status = document.getElementById('d-status').value;
+  const notes = document.getElementById('d-notes').value;
+  
+  await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'update', rowId: activeId, status, notes }) });
+  
+  const lead = allLeads.find(x => x.id === activeId);
+  lead.status = status; lead.notes = notes;
+  renderLeads(); renderAnalytics();
+  btn.innerText = "✓ Updated";
+  setTimeout(() => { btn.innerText = "Update Sheet"; closeDrawer(); }, 1000);
+}
+loadData();
+</script>
+</body>
+</html>
