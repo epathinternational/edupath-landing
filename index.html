@@ -3,9 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EduPath — Your Gateway to Global Education</title>
+<title>EduPath — Find Your Path</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
+  /* ─────────────────────────────────────────────────────────────
+     GLOBAL STYLES & VARIABLES
+     ───────────────────────────────────────────────────────────── */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
@@ -27,191 +30,738 @@
   html { scroll-behavior: smooth; }
   body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); line-height: 1.6; }
 
-  /* ── CSS LOGO DESIGN ── */
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--teal);
-  }
-  .logo-icon {
-    width: 34px;
-    height: 34px;
-    background: var(--teal);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--white);
-    font-size: 1.1rem;
-    position: relative;
-    box-shadow: 0 4px 10px rgba(11, 92, 82, 0.2);
-  }
-  .logo-icon::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    right: -2px;
-    width: 12px;
-    height: 12px;
-    background: var(--gold);
-    border: 2px solid var(--white);
-    border-radius: 50%;
-  }
-
   /* ── NAV ── */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
     display: flex; align-items: center; justify-content: space-between;
     padding: 1rem 5%;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(250,248,244,0.92);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
   }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; font-weight: 700; color: var(--teal);
+    letter-spacing: -0.3px;
+    cursor: default;
+  }
+  .logo span { color: var(--gold); }
+  
+  nav .nav-links { display: flex; align-items: center; gap: 2rem; }
+  nav a {
+    font-size: 0.85rem; font-weight: 500; color: var(--ink-soft);
+    text-decoration: none; letter-spacing: 0.3px;
+    transition: color 0.2s;
+  }
+  nav a:hover { color: var(--teal); }
+
   .nav-cta {
-    background: var(--teal); color: var(--white);
+    background: var(--teal); color: var(--white) !important;
     padding: 0.6rem 1.4rem; border-radius: 50px;
-    text-decoration: none; font-size: 0.85rem; font-weight: 500;
-    transition: 0.3s;
+    transition: background 0.2s, transform 0.2s;
   }
   .nav-cta:hover { background: var(--teal-mid); transform: translateY(-1px); }
 
-  /* ── HERO ── */
+  /* ── HERO SECTION ── */
   .hero {
     min-height: 100vh;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    padding-top: 70px;
+    gap: 0;
+    padding-top: 70px; /* Offset for fixed nav */
   }
+
+  /* Left Panel: Content & Branding */
   .hero-left {
     background: var(--teal);
     padding: 6rem 8% 4rem;
     display: flex; flex-direction: column; justify-content: center;
     position: relative; overflow: hidden;
+    color: var(--white);
   }
+  
+  /* Decorative elements for brand identity */
   .hero-left::before {
-    content: ''; position: absolute; top: -10%; right: -10%;
-    width: 300px; height: 300px; border: 50px solid rgba(255,255,255,0.04); border-radius: 50%;
+    content: '';
+    position: absolute; top: -80px; right: -80px;
+    width: 320px; height: 320px;
+    border: 60px solid rgba(255,255,255,0.06);
+    border-radius: 50%;
+  }
+  .hero-left::after {
+    content: '';
+    position: absolute; bottom: -60px; left: -60px;
+    width: 200px; height: 200px;
+    border: 40px solid rgba(200,147,42,0.15);
+    border-radius: 50%;
+  }
+
+  .eyebrow {
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 2.5px;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 1.5rem; display: block;
   }
   .hero-heading {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(2.5rem, 5vw, 3.8rem);
+    font-size: clamp(2.6rem, 5vw, 3.8rem);
     line-height: 1.1; font-weight: 700;
-    color: var(--white); margin-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+    position: relative; z-index: 2;
   }
-  .hero-sub {
-    font-size: 1.1rem; color: rgba(255,255,255,0.8);
-    max-width: 480px; margin-bottom: 3rem;
-  }
-  .stats-row { display: flex; gap: 2.5rem; margin-top: 2rem; }
-  .stat-num { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--gold); font-weight: 700; }
-  .stat-label { font-size: 0.75rem; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1px; }
+  .hero-heading em { font-style: italic; color: #f5c96a; font-weight: 400; }
 
-  /* ── FORM ── */
+  .hero-sub {
+    font-size: 1.05rem; font-weight: 300; color: rgba(255,255,255,0.75);
+    max-width: 460px; line-height: 1.8; margin-bottom: 3.5rem;
+  }
+
+  /* Trust Indicators */
+  .stats-row {
+    display: flex; gap: 3rem;
+    position: relative; z-index: 2;
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 700;
+    color: var(--white); line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.8rem; color: rgba(255,255,255,0.55);
+    margin-top: 6px; font-weight: 400; text-transform: uppercase; letter-spacing: 1px;
+  }
+  .stat-divider { width: 1px; background: rgba(255,255,255,0.15); }
+
+  /* ── FORM PANEL (Right) ── */
   .hero-right {
     background: var(--white);
-    padding: 4rem 8%;
+    padding: 4rem 10%;
     display: flex; flex-direction: column; justify-content: center;
+    position: relative;
   }
-  .form-header { margin-bottom: 2rem; }
-  .form-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 0.5rem; }
-  .progress-bar { display: flex; gap: 8px; margin-bottom: 2rem; }
-  .progress-step { flex: 1; height: 4px; background: #eee; border-radius: 2px; transition: 0.4s; }
+
+  .form-header { margin-bottom: 2.5rem; }
+  .form-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; font-weight: 700;
+    color: var(--ink); margin-bottom: 0.5rem;
+  }
+  .form-sub { font-size: 0.9rem; color: var(--ink-muted); line-height: 1.5; }
+
+  /* Multistep Progress Bar */
+  .progress-bar {
+    display: flex; gap: 8px; margin-bottom: 2.5rem;
+  }
+  .progress-step {
+    flex: 1; height: 4px; border-radius: 4px;
+    background: #eeeeee;
+    transition: background 0.4s ease;
+  }
   .progress-step.active { background: var(--teal); }
   .progress-step.done { background: var(--gold); }
 
+  .step-label {
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--teal);
+    margin-bottom: 1.2rem; display: block;
+  }
+
   .step { display: none; }
-  .step.visible { display: block; animation: fadeIn 0.4s ease forwards; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  .step.visible { display: block; animation: stepFadeIn 0.4s ease forwards; }
+  @keyframes stepFadeIn { 
+    from { opacity: 0; transform: translateY(10px); } 
+    to { opacity: 1; transform: translateY(0); } 
+  }
 
+  /* Option Cards Structure */
   .option-grid { display: grid; gap: 12px; margin-bottom: 1.5rem; }
-  .cols-2 { grid-template-columns: 1fr 1fr; }
-  .cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .option-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+  .option-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
 
-  .option-card, .country-card {
-    border: 1.5px solid #eee; padding: 1.2rem; border-radius: var(--radius);
-    cursor: pointer; transition: 0.2s; background: var(--cream);
+  .option-card {
+    border: 1.5px solid #e8e8e8;
+    border-radius: var(--radius);
+    padding: 1.2rem;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    background: var(--cream);
+    position: relative;
+    display: flex; flex-direction: column;
+    height: 100%;
   }
-  .option-card:hover, .country-card:hover { border-color: var(--teal); }
-  .option-card.selected, .country-card.selected { border-color: var(--teal); background: var(--teal-light); }
+  .option-card:hover { border-color: var(--teal); background: var(--white); transform: translateY(-2px); }
+  .option-card.selected {
+    border-color: var(--teal);
+    background: var(--teal-light);
+    box-shadow: 0 4px 15px rgba(11,92,82,0.08);
+  }
+  .option-card.selected::after {
+    content: '✓';
+    position: absolute; top: 12px; right: 15px;
+    font-size: 0.8rem; color: var(--teal); font-weight: 800;
+  }
+  .option-icon { font-size: 1.5rem; margin-bottom: 8px; }
+  .option-name { font-size: 0.9rem; font-weight: 600; color: var(--ink); }
+  .option-desc { font-size: 0.78rem; color: var(--ink-muted); margin-top: 4px; line-height: 1.4; }
 
+  /* Country Cards (Step 3) */
+  .country-card {
+    display: flex; align-items: center; gap: 12px;
+    border: 1.5px solid #e8e8e8;
+    border-radius: var(--radius); padding: 0.9rem 1.2rem;
+    cursor: pointer; transition: all 0.25s; background: var(--cream);
+    position: relative;
+  }
+  .country-card:hover { border-color: var(--teal); background: var(--white); }
+  .country-card.selected { border-color: var(--teal); background: var(--teal-light); }
+  .country-card.selected::after { content: '✓'; position: absolute; top: 10px; right: 12px; font-size: 0.8rem; color: var(--teal); font-weight: 800; }
+  .flag { font-size: 1.5rem; }
+  .country-name { font-size: 0.9rem; font-weight: 600; color: var(--ink); }
+  .country-note { font-size: 0.75rem; color: var(--ink-muted); }
+
+  /* Text Input Fields */
+  .field-group { margin-bottom: 1.25rem; }
+  .field-label { font-size: 0.85rem; font-weight: 600; color: var(--ink); margin-bottom: 8px; display: block; }
   .field-input {
-    width: 100%; padding: 0.9rem; border: 1.5px solid #eee;
-    border-radius: 10px; margin-bottom: 1rem; font-family: inherit;
+    width: 100%; border: 1.5px solid #e8e8e8;
+    border-radius: 10px; padding: 0.85rem 1.1rem;
+    font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+    color: var(--ink); background: var(--cream);
+    transition: all 0.2s; outline: none;
   }
-  .field-input:focus { outline: none; border-color: var(--teal); }
-
-  .btn-next, .btn-submit {
-    width: 100%; padding: 1rem; border: none; border-radius: 50px;
-    font-weight: 600; cursor: pointer; transition: 0.3s;
-  }
-  .btn-next { background: var(--teal); color: var(--white); }
-  .btn-submit { background: var(--gold); color: var(--white); }
-  .btn-next:disabled { background: #ccc; cursor: not-allowed; }
-  .btn-back { background: none; border: none; color: var(--ink-muted); cursor: pointer; margin-top: 1rem; width: 100%; }
-
-  /* ── SECTIONS ── */
-  section.content-block { padding: 6rem 10%; text-align: center; }
-  .section-tag { color: var(--gold); font-weight: 600; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; margin-bottom: 1rem; display: block; }
-  .section-title { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 3rem; }
+  .field-input:focus { border-color: var(--teal); background: var(--white); box-shadow: 0 0 0 4px rgba(11,92,82,0.05); }
+  .field-input::placeholder { color: #aaa; }
   
-  .who-we-are-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; text-align: left; align-items: center; }
-  .how-it-works { background: var(--white); border-radius: 30px; padding: 4rem; box-shadow: var(--shadow); }
-  .steps-row { display: flex; justify-content: space-between; gap: 2rem; margin-top: 3rem; position: relative; }
-  .step-item { flex: 1; position: relative; z-index: 1; }
-  .step-num { width: 40px; height: 40px; background: var(--teal); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-weight: bold; }
+  .manual-input-box {
+    margin-top: 1rem; padding-top: 1rem; border-top: 1px dashed #ddd;
+  }
 
-  footer { background: var(--ink); color: #fff; padding: 4rem 10% 2rem; }
-  .footer-flex { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 3rem; }
-  .contact-link { color: var(--gold); text-decoration: none; font-weight: 500; }
+  .fields-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 
-  @media (max-width: 900px) {
+  /* Form Navigation Buttons */
+  .btn-row { display: flex; gap: 12px; margin-top: 2rem; }
+  .btn-back {
+    flex: 0 0 auto; padding: 0.9rem 1.6rem;
+    border: 1.5px solid #e8e8e8; border-radius: 50px;
+    background: transparent; font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem; color: var(--ink-soft); cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-back:hover { border-color: var(--ink); background: #f9f9f9; }
+  
+  .btn-next, .btn-submit {
+    flex: 1; padding: 1rem 1.8rem;
+    background: var(--teal); color: var(--white);
+    border: none; border-radius: 50px;
+    font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 600;
+    cursor: pointer; transition: all 0.25s ease;
+    letter-spacing: 0.3px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .btn-next:hover { background: var(--teal-mid); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(11,92,82,0.2); }
+  .btn-next:disabled { background: #dcdcdc; color: #999; cursor: not-allowed; transform: none; box-shadow: none; }
+  
+  .btn-submit { background: var(--gold); }
+  .btn-submit:hover { background: #b07e22; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(200,147,42,0.2); }
+
+  /* Success State */
+  .success-screen {
+    text-align: center; padding: 3rem 1rem;
+    display: none;
+  }
+  .success-screen.visible { display: block; animation: fadeIn 0.6s ease; }
+  .success-icon {
+    width: 80px; height: 80px; border-radius: 50%;
+    background: var(--teal-light); margin: 0 auto 1.8rem;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.2rem; color: var(--teal);
+  }
+  .success-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 700; color: var(--teal);
+    margin-bottom: 1rem;
+  }
+  .success-sub { font-size: 1rem; color: var(--ink-soft); line-height: 1.8; max-width: 380px; margin: 0 auto 2rem; }
+  
+  .summary-tags {
+    display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+    margin-bottom: 2rem;
+  }
+  .tag {
+    background: var(--teal-light); color: var(--teal);
+    border-radius: 50px; padding: 6px 16px;
+    font-size: 0.85rem; font-weight: 600;
+  }
+
+  /* ── HOMEPAGE SECTIONS (Restored Alignment) ── */
+  
+  /* Why Section (Centered as requested) */
+  .why-section {
+    padding: 8rem 8%;
+    background: var(--cream);
+    text-align: center; /* Enforce center alignment */
+  }
+  .section-eyebrow {
+    font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--gold); font-weight: 600; margin-bottom: 1.2rem;
+    display: block;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 700; color: var(--ink);
+    margin-bottom: 4rem;
+    max-width: 700px; margin-left: auto; margin-right: auto;
+    line-height: 1.2;
+  }
+  
+  .features-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem;
+    text-align: left; /* Keep card content legible while section is centered */
+  }
+  .feature-card {
+    background: var(--white);
+    border-radius: var(--radius); padding: 3rem 2.2rem;
+    border: 1px solid var(--border);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .feature-card:hover { transform: translateY(-8px); box-shadow: var(--shadow); }
+  
+  .feature-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem; font-weight: 700; color: var(--teal-light);
+    line-height: 1; margin-bottom: 1.2rem;
+    -webkit-text-stroke: 1.5px var(--teal);
+  }
+  .feature-name { font-size: 1.15rem; font-weight: 600; color: var(--ink); margin-bottom: 0.8rem; }
+  .feature-desc { font-size: 0.95rem; color: var(--ink-muted); line-height: 1.75; }
+
+  /* Destinations Strip (Restored) */
+  .countries-section {
+    padding: 6rem 8%;
+    background: var(--teal);
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .countries-strip {
+    display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center;
+    max-width: 1000px; margin: 0 auto;
+  }
+  .country-pill {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 50px; padding: 0.7rem 1.6rem;
+    color: var(--white); font-size: 0.95rem; font-weight: 500;
+    display: flex; align-items: center; gap: 10px;
+    transition: background 0.2s;
+  }
+  .country-pill:hover { background: rgba(255,255,255,0.15); }
+
+  /* Still have questions? Section (Restored) */
+  .cta-section {
+    padding: 8rem 8%; text-align: center;
+    background: var(--gold-light);
+    border-top: 1px solid rgba(200,147,42,0.15);
+  }
+  .cta-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem); font-weight: 700;
+    color: var(--ink); margin-bottom: 1.2rem;
+  }
+  .cta-sub { font-size: 1.1rem; color: var(--ink-soft); margin-bottom: 2.5rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+  
+  .btn-cta-big {
+    background: var(--teal); color: var(--white);
+    padding: 1.2rem 3rem; border-radius: 50px; border: none;
+    font-family: 'DM Sans', sans-serif; font-size: 1.1rem; font-weight: 600;
+    cursor: pointer; transition: all 0.3s ease; display: inline-block;
+    text-decoration: none;
+  }
+  .btn-cta-big:hover { background: var(--teal-mid); transform: translateY(-3px); box-shadow: 0 10px 25px rgba(11,92,82,0.3); }
+
+  /* Footer & Quick Contact Email */
+  footer {
+    padding: 4rem 8%;
+    background: var(--ink);
+    color: var(--white);
+  }
+  .footer-grid {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 3rem;
+  }
+  .footer-brand { max-width: 300px; }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem; }
+  .footer-logo span { color: var(--gold); }
+  .footer-tagline { font-size: 0.9rem; color: rgba(255,255,255,0.5); line-height: 1.6; }
+  
+  .footer-contact { text-align: right; }
+  .footer-email-link { 
+    color: var(--gold); text-decoration: none; font-weight: 500; font-size: 1.1rem;
+    transition: opacity 0.2s;
+  }
+  .footer-email-link:hover { opacity: 0.8; }
+  
+  .footer-bottom {
+    padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.85rem; color: rgba(255,255,255,0.4);
+  }
+
+  /* Form Errors */
+  .field-error { font-size: 0.78rem; color: #e74c3c; margin-top: 6px; display: none; font-weight: 500; }
+  .field-input.error { border-color: #e74c3c; background: #fffcfc; }
+
+  /* Responsive Fixes */
+  @media (max-width: 1024px) {
     .hero { grid-template-columns: 1fr; }
-    .who-we-are-grid { grid-template-columns: 1fr; }
-    .steps-row { flex-direction: column; }
+    .hero-left { padding: 6rem 8% 4rem; text-align: center; }
+    .hero-left::before, .hero-left::after { display: none; }
+    .hero-sub { margin-left: auto; margin-right: auto; }
+    .stats-row { justify-content: center; }
+    .hero-right { padding: 5rem 10%; }
+    .features-grid { grid-template-columns: 1fr; }
+  }
+  
+  @media (max-width: 640px) {
+    .option-grid.cols-3 { grid-template-columns: 1fr; }
+    .option-grid.cols-2 { grid-template-columns: 1fr; }
+    .fields-row { grid-template-columns: 1fr; }
+    .footer-grid { flex-direction: column; gap: 2rem; text-align: center; align-items: center; }
+    .footer-contact { text-align: center; }
+    .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
   }
 </style>
 </head>
 <body>
 
 <nav>
-  <a href="#" class="logo">
-    <div class="logo-icon">E</div>
-    EduPath
-  </a>
-  <a href="#form-section" class="nav-cta">Register for Free Counseling</a>
+  <div class="logo">EduPath<span>.</span></div>
+  <div class="nav-links">
+    <a href="#destinations">Destinations</a>
+    <a href="#form-section" class="nav-cta">Apply Now</a>
+  </div>
 </nav>
 
+<section class="hero" id="form-section">
+
+  <div class="hero-left">
+    <span class="eyebrow">Trusted Global Education Partner</span>
+    <h1 class="hero-heading">
+      Your Future Awaits.<br>
+      <em>Study Anywhere.</em>
+    </h1>
+    <p class="hero-sub">
+      From Ivy League dreams to European innovation hubs, we provide expert guidance for Indian students seeking world-class degrees abroad.
+    </p>
+    
+    <div class="stats-row">
+      <div class="stat-item">
+        <div class="stat-num">15+</div>
+        <div class="stat-label">Years of Experience</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-num">50K+</div>
+        <div class="stat-label">Success Stories</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-num">30+</div>
+        <div class="stat-label">Global Partners</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+
+    <div id="form-wrapper">
+      <div class="form-header">
+        <h2 class="form-title">Start Your Journey</h2>
+        <p class="form-sub">Complete this form to receive a personalized study plan and consultation.</p>
+      </div>
+
+      <div class="progress-bar">
+        <div class="progress-step active" id="pb-1"></div>
+        <div class="progress-step" id="pb-2"></div>
+        <div class="progress-step" id="pb-3"></div>
+        <div class="progress-step" id="pb-4"></div>
+      </div>
+
+      <div class="step visible" id="step-1">
+        <span class="step-label">Step 1 of 4 &mdash; Degree Level</span>
+        <h3 style="font-family:'Playfair Display',serif; font-size:1.25rem; margin-bottom:0.5rem;">Which level of study are you targeting?</h3>
+        <p style="font-size:0.85rem; color:var(--ink-muted); margin-bottom:1.5rem;">Select your intended academic stage</p>
+        
+        <div class="option-grid cols-2">
+          <div class="option-card" data-step="1" data-value="Undergraduate (UG)" onclick="selectOption(this)">
+            <div class="option-icon">🎓</div>
+            <div class="option-name">Undergraduate</div>
+            <div class="option-desc">Bachelors, Diplomas, and Foundation courses</div>
+          </div>
+          <div class="option-card" data-step="1" data-value="Postgraduate (PG)" onclick="selectOption(this)">
+            <div class="option-icon">📚</div>
+            <div class="option-name">Postgraduate</div>
+            <div class="option-desc">Masters, MBA, and Research Doctorates</div>
+          </div>
+        </div>
+        
+        <div class="btn-row">
+          <button class="btn-next" id="btn-next-1" onclick="goStep(2)" disabled>Continue to Programs →</button>
+        </div>
+      </div>
+
+      <div class="step" id="step-2">
+        <span class="step-label">Step 2 of 4 &mdash; Program Interest</span>
+        <h3 style="font-family:'Playfair Display',serif; font-size:1.25rem; margin-bottom:0.5rem;">Which field interests you most?</h3>
+        <p style="font-size:0.85rem; color:var(--ink-muted); margin-bottom:1.5rem;">Select one or more categories</p>
+        
+        <div class="option-grid cols-3" id="course-grid">
+          <div class="option-card" data-step="2" data-value="STEM" onclick="selectOption(this, true)">
+            <div class="option-icon">⚙️</div>
+            <div class="option-name">STEM</div>
+          </div>
+          <div class="option-card" data-step="2" data-value="Business" onclick="selectOption(this, true)">
+            <div class="option-icon">💼</div>
+            <div class="option-name">Business</div>
+          </div>
+          <div class="option-card" data-step="2" data-value="Healthcare" onclick="selectOption(this, true)">
+            <div class="option-icon">🏥</div>
+            <div class="option-name">Health</div>
+          </div>
+          <div class="option-card" data-step="2" data-value="Creative Arts" onclick="selectOption(this, true)">
+            <div class="option-icon">🎨</div>
+            <div class="option-name">Arts</div>
+          </div>
+          <div class="option-card" data-step="2" data-value="Law & Policy" onclick="selectOption(this, true)">
+            <div class="option-icon">⚖️</div>
+            <div class="option-name">Law</div>
+          </div>
+          <div class="option-card" data-step="2" data-value="AI & Data Science" onclick="selectOption(this, true)">
+            <div class="option-icon">🤖</div>
+            <div class="option-name">Data/AI</div>
+          </div>
+        </div>
+
+        <div class="manual-input-box">
+          <label class="field-label" for="f-course-manual">Don't see your course? Type it here:</label>
+          <input type="text" class="field-input" id="f-course-manual" placeholder="e.g. Marine Biology, Psychology..." oninput="updateNextBtns()">
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-back" onclick="goStep(1)">← Back</button>
+          <button class="btn-next" id="btn-next-2" onclick="goStep(3)" disabled>Continue to Destinations →</button>
+        </div>
+      </div>
+
+      <div class="step" id="step-3">
+        <span class="step-label">Step 3 of 4 &mdash; Study Destinations</span>
+        <h3 style="font-family:'Playfair Display',serif; font-size:1.25rem; margin-bottom:0.5rem;">Where do you dream of studying?</h3>
+        <p style="font-size:0.85rem; color:var(--ink-muted); margin-bottom:1.5rem;">Select all countries you're exploring</p>
+        
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:1.5rem;" id="country-grid">
+          <div class="country-card" data-step="3" data-value="USA" onclick="selectOption(this, true)">
+            <span class="flag">🇺🇸</span>
+            <div class="country-info">
+              <div class="country-name">United States</div>
+              <div class="country-note">Top Research Hub</div>
+            </div>
+          </div>
+          <div class="country-card" data-step="3" data-value="UK" onclick="selectOption(this, true)">
+            <span class="flag">🇬🇧</span>
+            <div class="country-info">
+              <div class="country-name">United Kingdom</div>
+              <div class="country-note">Prestigious Heritage</div>
+            </div>
+          </div>
+          <div class="country-card" data-step="3" data-value="Canada" onclick="selectOption(this, true)">
+            <span class="flag">🇨🇦</span>
+            <div class="country-info">
+              <div class="country-name">Canada</div>
+              <div class="country-note">Immigration Friendly</div>
+            </div>
+          </div>
+          <div class="country-card" data-step="3" data-value="Australia" onclick="selectOption(this, true)">
+            <span class="flag">🇦🇺</span>
+            <div class="country-info">
+              <div class="country-name">Australia</div>
+              <div class="country-note">Quality Lifestyle</div>
+            </div>
+          </div>
+          <div class="country-card" data-step="3" data-value="Germany" onclick="selectOption(this, true)">
+            <span class="flag">🇩🇪</span>
+            <div class="country-info">
+              <div class="country-name">Germany</div>
+              <div class="country-note">Low Cost Tech Hub</div>
+            </div>
+          </div>
+          <div class="country-card" data-step="3" data-value="Ireland" onclick="selectOption(this, true)">
+            <span class="flag">🇮🇪</span>
+            <div class="country-info">
+              <div class="country-name">Ireland</div>
+              <div class="country-note">Tech Capital of EU</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="manual-input-box">
+          <label class="field-label" for="f-country-manual">Interested in another country?</label>
+          <input type="text" class="field-input" id="f-country-manual" placeholder="e.g. France, Singapore, Japan..." oninput="updateNextBtns()">
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-back" onclick="goStep(2)">← Back</button>
+          <button class="btn-next" id="btn-next-3" onclick="goStep(4)" disabled>Continue to Contact →</button>
+        </div>
+      </div>
+
+      <div class="step" id="step-4">
+        <span class="step-label">Step 4 of 4 &mdash; Contact Information</span>
+        <h3 style="font-family:'Playfair Display',serif; font-size:1.25rem; margin-bottom:0.5rem;">Let's get in touch.</h3>
+        <p style="font-size:0.85rem; color:var(--ink-muted); margin-bottom:1.5rem;">A senior counsellor will call you within 24 hours.</p>
+
+        <div class="fields-row">
+          <div class="field-group">
+            <label class="field-label" for="f-name">Your Full Name *</label>
+            <input class="field-input" type="text" id="f-name" placeholder="Rahul Kumar">
+            <div class="field-error" id="err-name">Full name is required</div>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="f-phone">Mobile Number *</label>
+            <input class="field-input" type="tel" id="f-phone" placeholder="+91 99000 00000">
+            <div class="field-error" id="err-phone">Enter a valid 10-digit number</div>
+          </div>
+        </div>
+        
+        <div class="field-group">
+          <label class="field-label" for="f-email">Email Address *</label>
+          <input class="field-input" type="email" id="f-email" placeholder="rahul@example.com">
+          <div class="field-error" id="err-email">Valid email is required</div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="f-city">Your Current City</label>
+          <input class="field-input" type="text" id="f-city" placeholder="Mumbai, Delhi, Bangalore...">
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="f-intake">Target Intake Year</label>
+          <select class="field-input" id="f-intake">
+            <option value="">— Select Year —</option>
+            <option>Fall 2025</option>
+            <option>Spring 2026</option>
+            <option>Fall 2026</option>
+            <option>Exploring Later</option>
+          </select>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-back" onclick="goStep(3)">← Back</button>
+          <button class="btn-submit" onclick="submitForm()">🎓 Get Free Consultation</button>
+        </div>
+      </div>
+    </div><div class="success-screen" id="success-screen">
+      <div class="success-icon">✓</div>
+      <h2 class="success-title">Application Received!</h2>
+      <p class="success-sub">Thank you, <strong id="success-name">Student</strong>. Our expert team is reviewing your profile and will contact you shortly.</p>
+      <div class="summary-tags" id="summary-tags"></div>
+      <p style="font-size:0.85rem; color:var(--ink-muted);">A confirmation has been sent to your email.</p>
+    </div>
+
+  </div></section>
+
+<section class="why-section">
+  <span class="section-eyebrow">The EduPath Advantage</span>
+  <h2 class="section-title">Your Bridge to Global Academic Excellence</h2>
+  
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-num">01</div>
+      <div class="feature-name">Global University Network</div>
+      <div class="feature-desc">Access direct partnerships with over 500+ universities worldwide, ensuring faster application processing and priority review.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">02</div>
+      <div class="feature-name">Scholarship Expertise</div>
+      <div class="feature-desc">Our students secured over $5M in grants last year. We match your profile with exclusive funding opportunities others miss.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">03</div>
+      <div class="feature-name">Visa & Legal Guidance</div>
+      <div class="feature-desc">A 98% visa success rate. Our certified experts handle documentation, mock interviews, and financial proofing seamlessly.</div>
+    </div>
+  </div>
+</section>
+
+<section class="countries-section" id="destinations">
+  <span class="section-eyebrow">Our Global Footprint</span>
+  <h2 class="section-title" style="color:var(--white);">Where Would You Like to Go?</h2>
+  <div class="countries-strip">
+    <div class="country-pill">🇺🇸 USA</div>
+    <div class="country-pill">🇬🇧 UK</div>
+    <div class="country-pill">🇨🇦 Canada</div>
+    <div class="country-pill">🇦🇺 Australia</div>
+    <div class="country-pill">🇩🇪 Germany</div>
+    <div class="country-pill">🇮🇪 Ireland</div>
+    <div class="country-pill">🇳🇱 Netherlands</div>
+    <div class="country-pill">🇸🇬 Singapore</div>
+    <div class="country-pill">🇫🇷 France</div>
+    <div class="country-pill">🇳🇿 New Zealand</div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <h2 class="cta-title">Not sure where to start?</h2>
+  <p class="cta-sub">Consult with an expert to find the best course and country for your career goals.</p>
+  <a href="#form-section" class="btn-cta-big">Schedule a Free Discovery Call →</a>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">EduPath<span>.</span></div>
+      <p class="footer-tagline">Empowering Indian students to achieve global educational success through personalized mentorship and end-to-end admission support.</p>
+    </div>
+    <div class="footer-contact">
+      <p style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; opacity: 0.6;">Reach Us Directly</p>
+      <a href="mailto:epathinternational@gmail.com" class="footer-email-link">epathinternational@gmail.com</a>
+    </div>
+  </div>
+  
+  <div class="footer-bottom">
+    <p>© 2025 EduPath Consultants. All Rights Reserved.</p>
+    <div style="display:flex; gap:1.5rem;">
+      <span>Terms & Privacy</span>
+      <span>Education Partner India</span>
+    </div>
+  </div>
+</footer>
+
 <script>
-  /* GOOGLE FORMS CONFIG */
-  const GOOGLE_FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSeg7Kndf1mpmCwdmFfq6nvZ5G3-zKgmUz-UVqWadZ9QG9jJ5g/formResponse';
-  const FIELD_IDS = {
-    name: 'entry.517016014',
-    phone: 'entry.1000331561',
-    email: 'entry.1020126473',
-    city: 'entry.1261801159',
-    intake: 'entry.704805531',
-    level: 'entry.1766189794',
-    courses: 'entry.1154804339',
-    countries:'entry.1625209477'
+  /* ─────────────────────────────────────────────────────────────
+     FORM LOGIC & STATE MANAGEMENT
+     ───────────────────────────────────────────────────────────── */
+  const state = {
+    step1: null,
+    step2: [],
+    step3: [],
   };
 
-  const state = { step1: null, step2: [], step3: [] };
-
+  /**
+   * Handles multi-select and single-select for grid options
+   */
   function selectOption(el, multi = false) {
     const step = el.dataset.step;
     const val = el.dataset.value;
+    const key = 'step' + step;
+
     if (!multi) {
+      // Single select logic
       document.querySelectorAll(`[data-step="${step}"]`).forEach(c => c.classList.remove('selected'));
       el.classList.add('selected');
-      state['step' + step] = val;
+      state[key] = val;
     } else {
+      // Multi-select toggle logic
       el.classList.toggle('selected');
-      const key = 'step' + step;
       if (el.classList.contains('selected')) {
         if (!state[key].includes(val)) state[key].push(val);
       } else {
@@ -221,402 +771,151 @@
     updateNextBtns();
   }
 
+  /**
+   * Updates button states based on selection or manual input
+   */
   function updateNextBtns() {
+    // Step 1 check
     document.getElementById('btn-next-1').disabled = !state.step1;
-    document.getElementById('btn-next-2').disabled = state.step2.length === 0;
-    document.getElementById('btn-next-3').disabled = state.step3.length === 0;
+    
+    // Step 2 check (Grid or Manual Input)
+    const manualCourse = document.getElementById('f-course-manual').value.trim();
+    document.getElementById('btn-next-2').disabled = (state.step2.length === 0 && !manualCourse);
+    
+    // Step 3 check (Grid or Manual Input)
+    const manualCountry = document.getElementById('f-country-manual').value.trim();
+    document.getElementById('btn-next-3').disabled = (state.step3.length === 0 && !manualCountry);
   }
 
+  /**
+   * Navigation between form steps
+   */
   function goStep(n) {
+    // Hide all steps
     document.querySelectorAll('.step').forEach(s => s.classList.remove('visible'));
+    // Show target step
     document.getElementById('step-' + n).classList.add('visible');
+    
+    // Update progress bar UI
     ['pb-1','pb-2','pb-3','pb-4'].forEach((id, i) => {
       const el = document.getElementById(id);
       el.classList.remove('active','done');
       if (i + 1 < n) el.classList.add('done');
       else if (i + 1 === n) el.classList.add('active');
     });
+
+    // Scroll back to top of form for mobile
+    document.getElementById('form-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
+  /**
+   * Validates contact details in final step
+   */
+  function validateContact() {
+    let isValid = true;
+    const name = document.getElementById('f-name').value.trim();
+    const phone = document.getElementById('f-phone').value.trim();
+    const email = document.getElementById('f-email').value.trim();
+
+    const toggleError = (errId, inputId, isError) => {
+      document.getElementById(errId).style.display = isError ? 'block' : 'none';
+      document.getElementById(inputId).classList.toggle('error', isError);
+    };
+
+    // Name Validation
+    if (!name) { toggleError('err-name', 'f-name', true); isValid = false; } 
+    else toggleError('err-name', 'f-name', false);
+
+    // Phone Validation (Min 10 digits)
+    if (!phone || phone.replace(/\D/g,'').length < 10) { toggleError('err-phone', 'f-phone', true); isValid = false; } 
+    else toggleError('err-phone', 'f-phone', false);
+
+    // Email Validation (Simple check)
+    if (!email || !email.includes('@') || email.length < 5) { toggleError('err-email', 'f-email', true); isValid = false; } 
+    else toggleError('err-email', 'f-email', false);
+
+    return isValid;
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+     GOOGLE FORMS CONFIGURATION
+     ───────────────────────────────────────────────────────────── */
+  const GOOGLE_FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSeg7Kndf1mpmCwdmFfq6nvZ5G3-zKgmUz-UVqWadZ9QG9jJ5g/formResponse';
+
+  const FIELD_IDS = {
+    name:      'entry.517016014', 
+    phone:     'entry.1000331561',
+    email:     'entry.1020126473',
+    city:      'entry.1261801159',
+    intake:    'entry.704805531',
+    level:     'entry.1766189794',
+    courses:   'entry.1154804339',
+    countries: 'entry.1625209477',
+  };
+
+  /**
+   * Final submission to Google Sheets
+   */
   async function submitForm() {
-    const name = document.getElementById('f-name').value;
-    const body = new FormData();
-    body.append(FIELD_IDS.name, name);
-    body.append(FIELD_IDS.phone, document.getElementById('f-phone').value);
-    body.append(FIELD_IDS.email, document.getElementById('f-email').value);
-    body.append(FIELD_IDS.city, document.getElementById('f-city').value);
-    body.append(FIELD_IDS.intake, document.getElementById('f-intake').value);
-    body.append(FIELD_IDS.level, state.step1);
-    body.append(FIELD_IDS.courses, state.step2.join(', '));
-    body.append(FIELD_IDS.countries, state.step3.join(', '));
+    if (!validateContact()) return;
+
+    const submitBtn = document.querySelector('.btn-submit');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Processing...';
+    submitBtn.disabled = true;
+
+    // Collate Manual + Selected data
+    const manualCourse = document.getElementById('f-course-manual').value.trim();
+    const fullCourses = [...state.step2];
+    if (manualCourse) fullCourses.push(manualCourse);
+
+    const manualCountry = document.getElementById('f-country-manual').value.trim();
+    const fullCountries = [...state.step3];
+    if (manualCountry) fullCountries.push(manualCountry);
+
+    // Capture User Info
+    const name = document.getElementById('f-name').value.trim();
+    const phone = document.getElementById('f-phone').value.trim();
+    const email = document.getElementById('f-email').value.trim();
+    const city = document.getElementById('f-city').value.trim();
+    const intake = document.getElementById('f-intake').value;
+
+    // Build Form Data
+    const formData = new FormData();
+    formData.append(FIELD_IDS.name, name);
+    formData.append(FIELD_IDS.phone, phone);
+    formData.append(FIELD_IDS.email, email);
+    formData.append(FIELD_IDS.city, city);
+    formData.append(FIELD_IDS.intake, intake);
+    formData.append(FIELD_IDS.level, state.step1 || '');
+    formData.append(FIELD_IDS.courses, fullCourses.join(', '));
+    formData.append(FIELD_IDS.countries, fullCountries.join(', '));
 
     try {
-      await fetch(GOOGLE_FORM_ACTION, { method: 'POST', mode: 'no-cors', body });
-      document.getElementById('form-wrapper').style.display = 'none';
-      document.getElementById('success-screen').style.display = 'block';
-      document.getElementById('success-name').textContent = name;
-    } catch (e) { console.error(e); }
-  }
-</script>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EduPath — Global Education Pathways</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,900&family=Montserrat:wght@500;700;900&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      // no-cors mode allows submission even if Google blocks read-access
+      await fetch(GOOGLE_FORM_ACTION, { method: 'POST', mode: 'no-cors', body: formData });
+    } catch (err) {
+      console.warn('Submission network trace closed.');
+    }
 
-  :root {
-    --teal: #0b5c52;
-    --teal-mid: #146d62;
-    --teal-light: #f0f7f6;
-    --gold: #c8932a;
-    --gold-light: #fdf3e3;
-    --ink: #0f172a;
-    --ink-soft: #334155;
-    --white: #ffffff;
-    --radius: 16px;
-  }
-
-  body { 
-    font-family: 'Montserrat', sans-serif; 
-    background: #fafafa; 
-    color: var(--ink); 
-    line-height: 1.6;
-    font-size: 1.1rem; /* Bolder base text */
-  }
-
-  h1, h2, h3 { font-family: 'Fraunces', serif; font-weight: 900; }
-
-  /* ── CSS LOGO ── */
-  .logo-container { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-  .logo-icon {
-    width: 40px; height: 40px; background: var(--teal);
-    border-radius: 8px; display: flex; align-items: center;
-    justify-content: center; color: var(--gold);
-    font-family: 'Fraunces', serif; font-weight: 900; font-size: 1.5rem;
-    position: relative;
-  }
-  .logo-icon::after {
-    content: ''; position: absolute; bottom: 8px; right: 8px;
-    width: 6px; height: 6px; background: var(--gold); border-radius: 50%;
-  }
-  .logo-text { font-family: 'Fraunces', serif; font-size: 1.5rem; font-weight: 900; color: var(--teal); }
-
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; width: 100%; z-index: 1000;
-    padding: 1.5rem 5%; background: rgba(255,255,255,0.95);
-    backdrop-filter: blur(10px); border-bottom: 2px solid #eee;
-    display: flex; justify-content: space-between; align-items: center;
-  }
-  .nav-cta {
-    background: var(--teal); color: white; padding: 1rem 2rem;
-    border-radius: 50px; text-decoration: none; font-weight: 700;
-    font-size: 1rem; transition: 0.3s;
-  }
-
-  /* ── HERO ── */
-  .hero {
-    display: grid; grid-template-columns: 1.1fr 0.9fr; min-height: 100vh;
-    padding-top: 100px;
-  }
-  .hero-left { 
-    background: var(--teal); color: white; padding: 6rem 10% 4rem;
-    display: flex; flex-direction: column; justify-content: center;
-  }
-  .hero-heading { font-size: 4.5rem; line-height: 1; margin-bottom: 2rem; color: var(--white); }
-  .hero-heading span { color: var(--gold); font-style: italic; }
-  .hero-sub { font-size: 1.4rem; font-weight: 500; color: rgba(255,255,255,0.8); margin-bottom: 3rem; max-width: 600px; }
-
-  /* ── FORM ── */
-  .hero-right { background: white; padding: 4rem 8%; display: flex; flex-direction: column; justify-content: center; }
-  .form-title { font-size: 2.2rem; margin-bottom: 1rem; }
-  
-  .field-group { margin-bottom: 1.5rem; }
-  .field-label { font-weight: 700; font-size: 1rem; margin-bottom: 8px; display: block; }
-  .field-input, .text-manual {
-    width: 100%; padding: 1.2rem; border: 2px solid #e2e8f0; border-radius: 12px;
-    font-family: 'Montserrat', sans-serif; font-size: 1.1rem; font-weight: 500;
-    transition: 0.3s;
-  }
-  .field-input:focus { border-color: var(--teal); outline: none; }
-
-  .option-grid { display: grid; gap: 15px; margin-bottom: 1.5rem; }
-  .option-card {
-    border: 2px solid #e2e8f0; border-radius: var(--radius); padding: 1.5rem;
-    cursor: pointer; transition: 0.3s; background: #fff; text-align: center;
-  }
-  .option-card:hover { border-color: var(--teal); background: var(--teal-light); }
-  .option-card.selected { border-color: var(--teal); background: var(--teal-light); box-shadow: 0 0 0 4px rgba(11,92,82,0.1); }
-  .option-name { font-weight: 900; font-size: 1rem; display: block; margin-top: 8px; }
-
-  /* Flags */
-  .flag-thumb { font-size: 2.5rem; display: block; margin-bottom: 10px; }
-
-  /* ── BUTTONS ── */
-  .btn-next, .btn-submit {
-    background: var(--teal); color: white; border: none; padding: 1.5rem;
-    border-radius: 50px; font-weight: 900; font-size: 1.2rem; cursor: pointer;
-    width: 100%; transition: 0.3s; margin-top: 1rem;
-  }
-  .btn-submit { background: var(--gold); }
-  .btn-next:hover, .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-  .btn-back { background: none; border: none; font-weight: 700; color: var(--ink-soft); cursor: pointer; margin-top: 1rem; }
-
-  /* ── SECTIONS ── */
-  .section-pad { padding: 8rem 10%; }
-  .section-title { font-size: 3.5rem; text-align: center; margin-bottom: 4rem; }
-  
-  .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-  .feature-card { padding: 3rem; background: var(--teal-light); border-radius: 24px; text-align: center; }
-  .feature-icon { font-size: 3rem; margin-bottom: 1rem; display: block; }
-  .feature-name { font-size: 1.5rem; margin-bottom: 1rem; }
-
-  .destinations { background: var(--teal); color: white; text-align: center; }
-  .pill-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
-  .pill { background: rgba(255,255,255,0.1); padding: 1rem 2rem; border-radius: 50px; font-weight: 700; }
-
-  .contact-footer { background: var(--gold-light); text-align: center; }
-  .mail-link { color: var(--teal); font-weight: 900; text-decoration: underline; font-size: 1.4rem; }
-
-  .hidden { display: none; }
-  .step { display: none; }
-  .step.visible { display: block; animation: fadeInUp 0.5s ease; }
-
-  @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-  @media (max-width: 1024px) {
-    .hero { grid-template-columns: 1fr; }
-    .hero-heading { font-size: 3.5rem; }
-    .features { grid-template-columns: 1fr; }
-  }
-</style>
-</head>
-<body>
-
-<nav>
-  <a href="#" class="logo-container">
-    <div class="logo-icon">E</div>
-    <div class="logo-text">EduPath</div>
-  </a>
-  <a href="#form-area" class="nav-cta">Register Interest</a>
-</nav>
-
-<section class="hero" id="form-area">
-  <div class="hero-left">
-    <span class="section-tag" style="color: var(--gold-light)">Trusted Global Partners</span>
-    <h1 class="hero-heading">Your Gateway to Global Education Starts Here</h1>
-    <p class="hero-sub">Discover top universities, expert counseling, and international career pathways, all in one place with EduPath.</p>
+    // Prepare UI for success
+    document.getElementById('success-name').textContent = name.split(' ')[0];
+    const tagsContainer = document.getElementById('summary-tags');
+    tagsContainer.innerHTML = '';
     
-    <h1 class="hero-heading">Study <span>Global.</span><br>Live Bold.</h1>
-    <p class="hero-sub">Expert guidance from India's premier education consultants to the world's top universities.</p>
-    <div style="display:flex; gap:40px;">
-      <div><h3 style="font-size:2.5rem;">50K+</h3><p>Students</p></div>
-      <div><h3 style="font-size:2.5rem;">30+</h3><p>Countries</p></div>
-      <div><h3 style="font-size:2.5rem;">800+</h3><p>Universities</p></div>
-    </div>
-  </div>
+    // Create visualization of selected path
+    [state.step1, ...fullCourses, ...fullCountries].filter(Boolean).forEach(val => {
+      const chip = document.createElement('span');
+      chip.className = 'tag';
+      chip.textContent = val;
+      tagsContainer.appendChild(chip);
+    });
 
-  <div class="hero-right">
-    <div id="form-wrapper">
-      <h2 class="form-title">Your Journey Starts Here</h2>
-      
-      <div class="step visible" id="step-1">
-        <label class="field-label">Level of Study</label>
-        <div class="option-grid" style="grid-template-columns: 1fr 1fr;">
-          <div class="option-card" onclick="setVal('level', 'Undergrad', this)">
-            <span style="font-size:2rem;">🎓</span>
-            <span class="option-name">Undergraduate</span>
-          </div>
-          <div class="option-card" onclick="setVal('level', 'Postgrad', this)">
-            <span style="font-size:2rem;">📜</span>
-            <span class="option-name">Postgraduate</span>
-          </div>
-        </div>
-        <button class="btn-next" onclick="next(2)">Continue to Interests</button>
-      </div>
-
-      <div class="step" id="step-2">
-        <label class="field-label">Field of Interest</label>
-        <p style="margin-bottom:15px; font-size:0.9rem;">Select one or type your own below:</p>
-        <div class="option-grid" style="grid-template-columns: 1fr 1fr;">
-          <div class="option-card" onclick="setVal('field', 'Business', this)">💼 <span class="option-name">Business</span></div>
-          <div class="option-card" onclick="setVal('field', 'STEM', this)">🧪 <span class="option-name">STEM</span></div>
-        </div>
-        <input type="text" id="manual-field" class="text-manual" placeholder="Or type your specific field (e.g. Fine Arts)">
-        <button class="btn-next" onclick="next(3)">Next: Destination</button>
-        <button class="btn-back" onclick="next(1)">Back</button>
-      </div>
-
-      <div class="step" id="step-3">
-        <label class="field-label">Preferred Destination</label>
-        <div class="option-grid" style="grid-template-columns: 1fr 1fr;">
-          <div class="option-card" onclick="setVal('country', 'USA', this)">
-            <span class="flag-thumb">🇺🇸</span>
-            <span class="option-name">United States</span>
-          </div>
-          <div class="option-card" onclick="setVal('country', 'UK', this)">
-            <span class="flag-thumb">🇬🇧</span>
-            <span class="option-name">United Kingdom</span>
-          </div>
-        </div>
-        <input type="text" id="manual-country" class="text-manual" placeholder="Or type any other country">
-        <button class="btn-next" onclick="next(4)">Final Step: Contact</button>
-        <button class="btn-back" onclick="next(2)">Back</button>
-      </div>
-
-      <div class="step" id="step-4">
-        <div class="field-group">
-          <label class="field-label">Full Name</label>
-          <input type="text" id="f-name" class="field-input" placeholder="Enter your name">
-        </div>
-        <div class="field-group">
-          <label class="field-label">Mobile Number</label>
-          <input type="tel" id="f-phone" class="field-input" placeholder="+91">
-        </div>
-        <div class="field-group">
-          <label class="field-label">Preferred Intake</label>
-          <select id="f-intake" class="field-input">
-            <option>2026</option>
-            <option>2027</option>
-            <option>Still figuring out</option>
-          </select>
-        </div>
-        <button class="btn-submit" onclick="alert('Form submitted! We will contact you soon.')">Submit My Application</button>
-        <button class="btn-back" onclick="next(3)">Back</button>
-      </div>
-    </div>
-  </div>
-</section>
-<section class="content-block">
-    <div class="who-we-are-grid">
-        <div>
-            <span class="section-tag">Who We Are</span>
-            <h2 class="section-title" style="text-align: left; margin-bottom: 1.5rem;">Dedicated to Your Global Success</h2>
-            <p>EduPath is dedicated to guiding students toward the right international education opportunities.</p>
-            <ul style="margin-top: 1.5rem; text-align: left; list-style: none;">
-                <li style="margin-bottom: 0.8rem;">✓ Top universities worldwide</li>
-                <li style="margin-bottom: 0.8rem;">✓ Career-focused courses</li>
-                <li style="margin-bottom: 0.8rem;">✓ Trusted education experts</li>
-            </ul>
-        </div>
-        <div class="how-it-works">
-            <span class="section-tag">Process</span>
-            <h3>How It Works?</h3>
-            <div class="steps-row">
-                <div class="step-item"><div class="step-num">1</div><p>Register Online</p></div>
-                <div class="step-item"><div class="step-num">2</div><p>Get a Call</p></div>
-                <div class="step-item"><div class="step-num">3</div><p>Attend Fair</p></div>
-                <div class="step-item"><div class="step-num">4</div><p>Fly Abroad</p></div>
-            </div>
-        </div>
-    </div>
-</section>
-<section class="section-pad">
-  <h2 class="section-title">Why EduPath</h2>
-  <div class="features">
-    <div class="feature-card">
-      <span class="feature-icon">🏅</span>
-      <h3 class="feature-name">Certified Experts</h3>
-      <p>Our consultants are certified by global education boards to ensure your success.</p>
-    </div>
-    <div class="feature-card">
-      <span class="feature-icon">🤝</span>
-      <h3 class="feature-name">1-on-1 Mentorship</h3>
-      <p>We don't just process applications; we mentor your career from day one.</p>
-    </div>
-    <div class="feature-card">
-      <span class="feature-icon">💰</span>
-      <h3 class="feature-name">Scholarship Focus</h3>
-      <p>We've helped students secure over $5M in grants and institutional aid.</p>
-    </div>
-  </div>
-</section>
-  
-<!-- WHY SECTION -->
-<section class="why-section">
-  <h2 class="section-title">From India's Largest Education Fairs to Your Abroad Admission</h2>
-  <div class="features-grid">
-    <div class="feature-card">
-      <div class="feature-num">01</div>
-      <div class="feature-name">Personalised Counselling</div>
-      <div class="feature-desc">One-on-one sessions with certified counsellors who understand Indian student needs and match you to the right course and university.</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-num">02</div>
-      <div class="feature-name">End-to-End Support</div>
-      <div class="feature-desc">From shortlisting universities to SOP reviews, visa guidance, accommodation, and pre-departure briefings — we're with you every step.</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-num">03</div>
-      <div class="feature-name">Scholarship Matching</div>
-      <div class="feature-desc">We actively connect students with scholarships, grants, and financial aid opportunities at partner universities across 30+ countries.</div>
-    </div>
-  </div>
-</section>
-  
-<section class="section-pad destinations">
-  <h2 class="section-title" style="color:white">Destinations We Cover</h2>
-  <div class="pill-container">
-    <div class="pill">USA</div>
-    <div class="pill">UK</div>
-    <div class="pill">Canada</div>
-    <div class="pill">Australia</div>
-    <div class="pill">Germany</div>
-    <div class="pill">Ireland</div>
-    <div class="pill">Netherlands</div>
-    <div class="pill">🇫🇷 France</div>
-  </div>
-</section>
-
-<section class="section-pad contact-footer">
-  <h2 class="section-title">Still have questions?</h2>
-  <p class="hero-sub" style="color:var(--ink-soft); margin: 0 auto 2rem;">Our team is ready to help you navigate the complexities of international admissions.</p>
-  <div style="display:flex; flex-direction:column; gap:20px; align-items:center;">
-    <a href="#form-area" class="nav-cta" style="font-size:1.5rem; padding: 1.5rem 3rem;">Register Your Interest Free →</a>
-    <p>Or email us directly at: <a href="mailto:hello@edupath.com" class="mail-link">epathinternational@gmail.com</a></p>
-  </div>
-</section>
-
-<footer style="padding:4rem; background:var(--ink); color:white; text-align:center;">
-
-  <div class="footer-flex">
-    <div>
-      <a href="#" class="logo" style="color: #fff; margin-bottom: 1rem;">
-        <div class="logo-icon">E</div>
-        EduPath
-      </a>
-      <p style="color: rgba(255,255,255,0.5); font-size: 0.8rem;">Making global education accessible and achievable.</p>
-    </div>
-    <div>
-      <p style="margin-bottom: 0.5rem;">Quick Connect</p>
-      <a href="mailto:epathinternational@gmail.com" class="contact-link">epathinternational@gmail.com</a>
-    </div>
-  </div>
-  <p>© 2026 EduPath Consultants. All Rights Reserved.</p>
-</footer>  
-
-<script>
-  let formData = { level: '', field: '', country: '' };
-
-  function setVal(key, val, el) {
-    formData[key] = val;
-    const siblings = el.parentElement.querySelectorAll('.option-card');
-    siblings.forEach(s => s.classList.remove('selected'));
-    el.classList.add('selected');
-  }
-
-  function next(stepNum) {
-    document.querySelectorAll('.step').forEach(s => s.classList.remove('visible'));
-    document.getElementById('step-' + stepNum).classList.add('visible');
-    window.scrollTo({ top: document.getElementById('form-area').offsetTop - 100, behavior: 'smooth' });
+    // Toggle Visibility
+    document.getElementById('form-wrapper').style.display = 'none';
+    document.getElementById('success-screen').classList.add('visible');
   }
 </script>
 
-</body>
-</html>
 </body>
 </html>
