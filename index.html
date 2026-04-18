@@ -838,62 +838,58 @@
   /* ───────────────────────────────────────────────────────────── */
 
   async function submitForm() {
-    if (!validateContact()) return;
+  if (!validateContact()) return;
 
-    const btn = document.querySelector('.btn-submit');
-    btn.textContent = 'Submitting…';
-    btn.disabled = true;
+  const btn = document.querySelector('.btn-submit');
+  const originalText = btn.textContent;
+  btn.textContent = 'Submitting…';
+  btn.disabled = true;
 
-    const name     = document.getElementById('f-name').value.trim();
-    const phone    = document.getElementById('f-phone').value.trim();
-    const email    = document.getElementById('f-email').value.trim();
-    const city     = document.getElementById('f-city').value.trim();
-    const intake   = document.getElementById('f-intake').value;
-    
-    const otherCourse = document.getElementById('f-other-course').value.trim();
-    const otherCountry = document.getElementById('f-other-country').value.trim();
+  // 1. Gather inputs
+  const name     = document.getElementById('f-name').value.trim();
+  const phone    = document.getElementById('f-phone').value.trim();
+  const email    = document.getElementById('f-email').value.trim();
+  const city     = document.getElementById('f-city').value.trim();
+  const intake   = document.getElementById('f-intake').value;
+  
+  // 2. Prepare URLSearchParams (Standard for Google Forms)
+  const params = new URLSearchParams();
+  params.append(FIELD_IDS.name, name);
+  params.append(FIELD_IDS.phone, phone);
+  params.append(FIELD_IDS.email, email);
+  params.append(FIELD_IDS.city, city);
+  params.append(FIELD_IDS.intake, intake);
+  params.append(FIELD_IDS.level, state.step1 || '');
 
-    let coursesList = [...state.step2];
-    if (otherCourse) coursesList.push(otherCourse);
-    const courses = coursesList.join(', ');
+  // 3. IMPORTANT: Append checkboxes individually
+  state.step2.forEach(course => params.append(FIELD_IDS.courses, course));
+  const otherCourse = document.getElementById('f-other-course').value.trim();
+  if (otherCourse) params.append(FIELD_IDS.courses, otherCourse);
 
-    let countriesList = [...state.step3];
-    if (otherCountry) countriesList.push(otherCountry);
-    const countries = countriesList.join(', ');
+  state.step3.forEach(country => params.append(FIELD_IDS.countries, country));
+  const otherCountry = document.getElementById('f-other-country').value.trim();
+  if (otherCountry) params.append(FIELD_IDS.countries, otherCountry);
 
-    const body = new FormData();
-    body.append(FIELD_IDS.name,      name);
-    body.append(FIELD_IDS.phone,     phone);
-    body.append(FIELD_IDS.email,     email);
-    body.append(FIELD_IDS.city,      city);
-    body.append(FIELD_IDS.intake,    intake);
-    body.append(FIELD_IDS.level,     state.step1 || '');
-    body.append(FIELD_IDS.courses,   courses);
-    body.append(FIELD_IDS.countries, countries);
-
-    try {
-      /* Google Forms blocks CORS, so we use no-cors — the request
-         still lands in your Sheet even though we get an opaque response. */
-      await fetch(GOOGLE_FORM_ACTION, { method: 'POST', mode: 'no-cors', body });
-    } catch (e) {
-      /* Swallow network errors — opaque responses always throw in no-cors */
-    }
-
-    /* Show success regardless (no-cors gives no status to check) */
-    document.getElementById('success-name').textContent = name.split(' ')[0];
-    const tags = document.getElementById('summary-tags');
-    tags.innerHTML = '';
-    
-    const allSelections = [state.step1, ...coursesList, ...countriesList].filter(Boolean);
-    allSelections.forEach(v => {
-      const t = document.createElement('span');
-      t.className = 'tag'; t.textContent = v;
-      tags.appendChild(t);
+  try {
+    // 4. Send without custom headers
+    await fetch(GOOGLE_FORM_ACTION, { 
+      method: 'POST', 
+      mode: 'no-cors', 
+      body: params // Browser sets Content-Type automatically here
     });
-    
+
+    // 5. Success UI
+    document.getElementById('success-name').textContent = name.split(' ')[0];
     document.getElementById('form-wrapper').style.display = 'none';
     document.getElementById('success-screen').classList.add('visible');
+
+  } catch (e) {
+    console.error('Submission Error:', e);
+    alert('Network error. Please try again.');
+    btn.textContent = originalText;
+    btn.disabled = false;
   }
+}
 </script>
 </body>
 </html>
