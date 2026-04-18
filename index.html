@@ -838,58 +838,67 @@
   /* ───────────────────────────────────────────────────────────── */
 
   async function submitForm() {
-  if (!validateContact()) return;
+    if (!validateContact()) return;
 
-  const btn = document.querySelector('.btn-submit');
-  const originalText = btn.textContent;
-  btn.textContent = 'Submitting…';
-  btn.disabled = true;
+    const btn = document.querySelector('.btn-submit');
+    const originalText = btn.textContent;
+    btn.textContent = 'Submitting…';
+    btn.disabled = true;
 
-  // 1. Gather inputs
-  const name     = document.getElementById('f-name').value.trim();
-  const phone    = document.getElementById('f-phone').value.trim();
-  const email    = document.getElementById('f-email').value.trim();
-  const city     = document.getElementById('f-city').value.trim();
-  const intake   = document.getElementById('f-intake').value;
-  
-  // 2. Prepare URLSearchParams (Standard for Google Forms)
-  const params = new URLSearchParams();
-  params.append(FIELD_IDS.name, name);
-  params.append(FIELD_IDS.phone, phone);
-  params.append(FIELD_IDS.email, email);
-  params.append(FIELD_IDS.city, city);
-  params.append(FIELD_IDS.intake, intake);
-  params.append(FIELD_IDS.level, state.step1 || '');
+    const name     = document.getElementById('f-name').value.trim();
+    const phone    = document.getElementById('f-phone').value.trim();
+    const email    = document.getElementById('f-email').value.trim();
+    const city     = document.getElementById('f-city').value.trim();
+    const intake   = document.getElementById('f-intake').value;
+    
+    const otherCourse = document.getElementById('f-other-course').value.trim();
+    const otherCountry = document.getElementById('f-other-country').value.trim();
 
-  // 3. IMPORTANT: Append checkboxes individually
-  state.step2.forEach(course => params.append(FIELD_IDS.courses, course));
-  const otherCourse = document.getElementById('f-other-course').value.trim();
-  if (otherCourse) params.append(FIELD_IDS.courses, otherCourse);
+    const params = new URLSearchParams();
+    params.append(FIELD_IDS.name,      name);
+    params.append(FIELD_IDS.phone,     phone);
+    params.append(FIELD_IDS.email,     email);
+    params.append(FIELD_IDS.city,      city);
+    params.append(FIELD_IDS.intake,    intake);
+    params.append(FIELD_IDS.level,     state.step1 || '');
 
-  state.step3.forEach(country => params.append(FIELD_IDS.countries, country));
-  const otherCountry = document.getElementById('f-other-country').value.trim();
-  if (otherCountry) params.append(FIELD_IDS.countries, otherCountry);
+    // Correctly handle Multiple Selections for Checkboxes
+    state.step2.forEach(val => params.append(FIELD_IDS.courses, val));
+    if (otherCourse) params.append(FIELD_IDS.courses, otherCourse);
 
-  try {
-    // 4. Send without custom headers
-    await fetch(GOOGLE_FORM_ACTION, { 
-      method: 'POST', 
-      mode: 'no-cors', 
-      body: params // Browser sets Content-Type automatically here
-    });
+    state.step3.forEach(val => params.append(FIELD_IDS.countries, val));
+    if (otherCountry) params.append(FIELD_IDS.countries, otherCountry);
 
-    // 5. Success UI
-    document.getElementById('success-name').textContent = name.split(' ')[0];
-    document.getElementById('form-wrapper').style.display = 'none';
-    document.getElementById('success-screen').classList.add('visible');
+    try {
+      await fetch(GOOGLE_FORM_ACTION, { 
+        method: 'POST', 
+        mode: 'no-cors', 
+        // Note: Content-Type header is set automatically by the browser when passing URLSearchParams
+        body: params 
+      });
+      
+      // Success Screen Logic
+      document.getElementById('success-name').textContent = name.split(' ')[0];
+      const tags = document.getElementById('summary-tags');
+      tags.innerHTML = '';
+      
+      const allSelections = [state.step1, ...state.step2, ...state.step3].filter(Boolean);
+      allSelections.forEach(v => {
+        const t = document.createElement('span');
+        t.className = 'tag'; t.textContent = v;
+        tags.appendChild(t);
+      });
+      
+      document.getElementById('form-wrapper').style.display = 'none';
+      document.getElementById('success-screen').classList.add('visible');
 
-  } catch (e) {
-    console.error('Submission Error:', e);
-    alert('Network error. Please try again.');
-    btn.textContent = originalText;
-    btn.disabled = false;
+    } catch (e) {
+      console.error('Submission Error:', e);
+      alert('There was an issue submitting the form. Please check your connection.');
+      btn.textContent = originalText;
+      btn.disabled = false;
+    }
   }
-}
 </script>
 </body>
 </html>
