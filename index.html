@@ -3,12 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EduPath — Find Your Path</title>
+<title>Study Abroad — Find Your Path</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  /* ─────────────────────────────────────────────────────────────
-     GLOBAL STYLES & VARIABLES
-     ───────────────────────────────────────────────────────────── */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
@@ -28,60 +25,60 @@
   }
 
   html { scroll-behavior: smooth; }
-  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); line-height: 1.6; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --teal: #0b5c52; --white: #ffffff; }
+  body { font-family: 'DM Sans', sans-serif; background: #faf8f4; color: #1c1c1c; }
+  header { padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; background: #fff; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+  .btn-gold { background: #c8932a; color: #fff; padding: 0.8rem 1.5rem; border-radius: 50px; text-decoration: none; font-weight: 500; font-size: 0.9rem; transition: 0.3s; }
+  .btn-gold:hover { background: #ab7d22; }
+  .hero { padding: 4rem 5%; text-align: center; }
+  .form-container { max-width: 600px; margin: 2rem auto; padding: 2rem; background: #fff; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+  footer { padding: 3rem 5%; background: var(--teal); color: #fff; text-align: center; }
+  .hidden { display: none; }
 
-  /* ── NAV ── */
+ 
+
+ /* ── NAV ── */
   nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
     padding: 1rem 5%;
     background: rgba(250,248,244,0.92);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
   }
   .logo {
     font-family: 'Playfair Display', serif;
-    font-size: 1.6rem; font-weight: 700; color: var(--teal);
+    font-size: 1.4rem; font-weight: 700; color: var(--teal);
     letter-spacing: -0.3px;
-    cursor: default;
   }
   .logo span { color: var(--gold); }
-  
-  nav .nav-links { display: flex; align-items: center; gap: 2rem; }
   nav a {
     font-size: 0.85rem; font-weight: 500; color: var(--ink-soft);
     text-decoration: none; letter-spacing: 0.3px;
-    transition: color 0.2s;
   }
-  nav a:hover { color: var(--teal); }
-
   .nav-cta {
     background: var(--teal); color: var(--white) !important;
-    padding: 0.6rem 1.4rem; border-radius: 50px;
-    transition: background 0.2s, transform 0.2s;
+    padding: 0.5rem 1.25rem; border-radius: 50px;
+    transition: background 0.2s;
   }
-  .nav-cta:hover { background: var(--teal-mid); transform: translateY(-1px); }
+  .nav-cta:hover { background: var(--teal-mid); }
 
-  /* ── HERO SECTION ── */
+  /* ── HERO ── */
   .hero {
     min-height: 100vh;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0;
-    padding-top: 70px; /* Offset for fixed nav */
+    padding-top: 70px;
   }
 
-  /* Left Panel: Content & Branding */
   .hero-left {
     background: var(--teal);
-    padding: 6rem 8% 4rem;
+    padding: 6rem 6% 4rem;
     display: flex; flex-direction: column; justify-content: center;
     position: relative; overflow: hidden;
-    color: var(--white);
   }
-  
-  /* Decorative elements for brand identity */
   .hero-left::before {
     content: '';
     position: absolute; top: -80px; right: -80px;
@@ -98,337 +95,298 @@
   }
 
   .eyebrow {
-    font-size: 0.75rem; font-weight: 600; letter-spacing: 2.5px;
+    font-size: 0.72rem; font-weight: 500; letter-spacing: 2.5px;
     text-transform: uppercase; color: var(--gold);
-    margin-bottom: 1.5rem; display: block;
+    margin-bottom: 1.5rem;
   }
   .hero-heading {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(2.6rem, 5vw, 3.8rem);
-    line-height: 1.1; font-weight: 700;
+    font-size: clamp(2.4rem, 4vw, 3.4rem);
+    line-height: 1.15; font-weight: 700;
+    color: var(--white);
     margin-bottom: 1.5rem;
-    position: relative; z-index: 2;
   }
-  .hero-heading em { font-style: italic; color: #f5c96a; font-weight: 400; }
+  .hero-heading em { font-style: italic; color: #f5c96a; }
 
   .hero-sub {
-    font-size: 1.05rem; font-weight: 300; color: rgba(255,255,255,0.75);
-    max-width: 460px; line-height: 1.8; margin-bottom: 3.5rem;
+    font-size: 1rem; font-weight: 300; color: rgba(255,255,255,0.72);
+    max-width: 420px; line-height: 1.75; margin-bottom: 3rem;
   }
 
-  /* Trust Indicators */
   .stats-row {
-    display: flex; gap: 3rem;
-    position: relative; z-index: 2;
+    display: flex; gap: 2.5rem;
   }
+  .stat-item { }
   .stat-num {
     font-family: 'Playfair Display', serif;
-    font-size: 2rem; font-weight: 700;
+    font-size: 1.8rem; font-weight: 700;
     color: var(--white); line-height: 1;
   }
   .stat-label {
-    font-size: 0.8rem; color: rgba(255,255,255,0.55);
-    margin-top: 6px; font-weight: 400; text-transform: uppercase; letter-spacing: 1px;
+    font-size: 0.75rem; color: rgba(255,255,255,0.55);
+    margin-top: 4px; font-weight: 400;
   }
+
   .stat-divider { width: 1px; background: rgba(255,255,255,0.15); }
 
-  /* ── FORM PANEL (Right) ── */
+  /* ── FORM PANEL ── */
   .hero-right {
     background: var(--white);
-    padding: 4rem 10%;
+    padding: 4rem 6%;
     display: flex; flex-direction: column; justify-content: center;
-    position: relative;
+    overflow-y: auto;
   }
 
-  .form-header { margin-bottom: 2.5rem; }
+  .form-header { margin-bottom: 2rem; }
   .form-title {
     font-family: 'Playfair Display', serif;
-    font-size: 1.8rem; font-weight: 700;
-    color: var(--ink); margin-bottom: 0.5rem;
+    font-size: 1.65rem; font-weight: 700;
+    color: var(--ink); margin-bottom: 0.4rem;
   }
-  .form-sub { font-size: 0.9rem; color: var(--ink-muted); line-height: 1.5; }
+  .form-sub { font-size: 0.88rem; color: var(--ink-muted); }
 
-  /* Multistep Progress Bar */
+  /* Progress */
   .progress-bar {
-    display: flex; gap: 8px; margin-bottom: 2.5rem;
+    display: flex; gap: 6px; margin-bottom: 2rem;
   }
   .progress-step {
-    flex: 1; height: 4px; border-radius: 4px;
-    background: #eeeeee;
-    transition: background 0.4s ease;
+    flex: 1; height: 3px; border-radius: 4px;
+    background: #e5e5e5;
+    transition: background 0.35s;
   }
   .progress-step.active { background: var(--teal); }
   .progress-step.done { background: var(--gold); }
 
+  /* Step label */
   .step-label {
-    font-size: 0.75rem; font-weight: 600; letter-spacing: 1.5px;
+    font-size: 0.72rem; font-weight: 500; letter-spacing: 1.5px;
     text-transform: uppercase; color: var(--teal);
-    margin-bottom: 1.2rem; display: block;
+    margin-bottom: 1rem;
   }
 
-  .step { display: none; }
-  .step.visible { display: block; animation: stepFadeIn 0.4s ease forwards; }
-  @keyframes stepFadeIn { 
-    from { opacity: 0; transform: translateY(10px); } 
-    to { opacity: 1; transform: translateY(0); } 
-  }
+  .step { display: none; animation: fadeIn 0.3s ease; }
+  .step.visible { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-  /* Option Cards Structure */
-  .option-grid { display: grid; gap: 12px; margin-bottom: 1.5rem; }
+  /* Option grid */
+  .option-grid { display: grid; gap: 10px; margin-bottom: 1.5rem; }
   .option-grid.cols-2 { grid-template-columns: 1fr 1fr; }
-  .option-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .option-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
 
   .option-card {
-    border: 1.5px solid #e8e8e8;
+    border: 1.5px solid #e5e5e5;
     border-radius: var(--radius);
-    padding: 1.2rem;
+    padding: 1rem 1.1rem;
     cursor: pointer;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.2s;
     background: var(--cream);
     position: relative;
-    display: flex; flex-direction: column;
-    height: 100%;
   }
-  .option-card:hover { border-color: var(--teal); background: var(--white); transform: translateY(-2px); }
+  .option-card:hover { border-color: var(--teal); background: var(--teal-light); }
   .option-card.selected {
     border-color: var(--teal);
     background: var(--teal-light);
-    box-shadow: 0 4px 15px rgba(11,92,82,0.08);
+    box-shadow: 0 0 0 3px rgba(11,92,82,0.1);
   }
   .option-card.selected::after {
     content: '✓';
-    position: absolute; top: 12px; right: 15px;
-    font-size: 0.8rem; color: var(--teal); font-weight: 800;
+    position: absolute; top: 8px; right: 10px;
+    font-size: 0.75rem; color: var(--teal); font-weight: 700;
   }
-  .option-icon { font-size: 1.5rem; margin-bottom: 8px; }
-  .option-name { font-size: 0.9rem; font-weight: 600; color: var(--ink); }
-  .option-desc { font-size: 0.78rem; color: var(--ink-muted); margin-top: 4px; line-height: 1.4; }
+  .option-icon { font-size: 1.3rem; margin-bottom: 5px; }
+  .option-name { font-size: 0.88rem; font-weight: 500; color: var(--ink); }
+  .option-desc { font-size: 0.75rem; color: var(--ink-muted); margin-top: 2px; }
 
-  /* Country Cards (Step 3) */
+  /* Country grid special */
   .country-card {
-    display: flex; align-items: center; gap: 12px;
-    border: 1.5px solid #e8e8e8;
-    border-radius: var(--radius); padding: 0.9rem 1.2rem;
-    cursor: pointer; transition: all 0.25s; background: var(--cream);
+    display: flex; align-items: center; gap: 10px;
+    border: 1.5px solid #e5e5e5;
+    border-radius: var(--radius); padding: 0.8rem 1rem;
+    cursor: pointer; transition: all 0.2s; background: var(--cream);
     position: relative;
   }
-  .country-card:hover { border-color: var(--teal); background: var(--white); }
-  .country-card.selected { border-color: var(--teal); background: var(--teal-light); }
-  .country-card.selected::after { content: '✓'; position: absolute; top: 10px; right: 12px; font-size: 0.8rem; color: var(--teal); font-weight: 800; }
-  .flag { font-size: 1.5rem; }
-  .country-name { font-size: 0.9rem; font-weight: 600; color: var(--ink); }
-  .country-note { font-size: 0.75rem; color: var(--ink-muted); }
+  .country-card:hover { border-color: var(--teal); background: var(--teal-light); }
+  .country-card.selected { border-color: var(--teal); background: var(--teal-light); box-shadow: 0 0 0 3px rgba(11,92,82,0.1); }
+  .country-card.selected::after { content: '✓'; position: absolute; top: 8px; right: 10px; font-size: 0.75rem; color: var(--teal); font-weight: 700; }
+  .flag { font-size: 1.4rem; }
+  .country-info {}
+  .country-name { font-size: 0.88rem; font-weight: 500; color: var(--ink); }
+  .country-note { font-size: 0.72rem; color: var(--ink-muted); }
 
-  /* Text Input Fields */
-  .field-group { margin-bottom: 1.25rem; }
-  .field-label { font-size: 0.85rem; font-weight: 600; color: var(--ink); margin-bottom: 8px; display: block; }
+  /* Hint text */
+  .hint { font-size: 0.78rem; color: var(--ink-muted); margin-bottom: 1rem; }
+
+  /* Form fields */
+  .field-group { margin-bottom: 1.1rem; }
+  .field-label { font-size: 0.82rem; font-weight: 500; color: var(--ink); margin-bottom: 6px; display: block; }
   .field-input {
-    width: 100%; border: 1.5px solid #e8e8e8;
-    border-radius: 10px; padding: 0.85rem 1.1rem;
-    font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+    width: 100%; border: 1.5px solid #e5e5e5;
+    border-radius: 10px; padding: 0.75rem 1rem;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
     color: var(--ink); background: var(--cream);
-    transition: all 0.2s; outline: none;
+    transition: border-color 0.2s; outline: none;
   }
-  .field-input:focus { border-color: var(--teal); background: var(--white); box-shadow: 0 0 0 4px rgba(11,92,82,0.05); }
-  .field-input::placeholder { color: #aaa; }
-  
-  .manual-input-box {
-    margin-top: 1rem; padding-top: 1rem; border-top: 1px dashed #ddd;
-  }
+  .field-input:focus { border-color: var(--teal); background: var(--white); }
+  .fields-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
-  .fields-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-
-  /* Form Navigation Buttons */
-  .btn-row { display: flex; gap: 12px; margin-top: 2rem; }
+  /* Buttons */
+  .btn-row { display: flex; gap: 10px; margin-top: 1.5rem; }
   .btn-back {
-    flex: 0 0 auto; padding: 0.9rem 1.6rem;
-    border: 1.5px solid #e8e8e8; border-radius: 50px;
+    flex: 0 0 auto; padding: 0.8rem 1.4rem;
+    border: 1.5px solid #e5e5e5; border-radius: 50px;
     background: transparent; font-family: 'DM Sans', sans-serif;
-    font-size: 0.9rem; color: var(--ink-soft); cursor: pointer;
+    font-size: 0.88rem; color: var(--ink-soft); cursor: pointer;
     transition: all 0.2s;
   }
-  .btn-back:hover { border-color: var(--ink); background: #f9f9f9; }
-  
-  .btn-next, .btn-submit {
-    flex: 1; padding: 1rem 1.8rem;
+  .btn-back:hover { border-color: var(--ink-soft); }
+  .btn-next {
+    flex: 1; padding: 0.9rem 1.5rem;
     background: var(--teal); color: var(--white);
     border: none; border-radius: 50px;
-    font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 600;
-    cursor: pointer; transition: all 0.25s ease;
-    letter-spacing: 0.3px;
-    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Sans', sans-serif; font-size: 0.92rem; font-weight: 500;
+    cursor: pointer; transition: all 0.25s;
+    letter-spacing: 0.2px;
   }
-  .btn-next:hover { background: var(--teal-mid); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(11,92,82,0.2); }
-  .btn-next:disabled { background: #dcdcdc; color: #999; cursor: not-allowed; transform: none; box-shadow: none; }
-  
-  .btn-submit { background: var(--gold); }
-  .btn-submit:hover { background: #b07e22; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(200,147,42,0.2); }
+  .btn-next:hover { background: var(--teal-mid); transform: translateY(-1px); }
+  .btn-next:disabled { background: #ccc; cursor: not-allowed; transform: none; }
+  .btn-submit {
+    flex: 1; padding: 0.9rem 1.5rem;
+    background: var(--gold); color: var(--white);
+    border: none; border-radius: 50px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 500;
+    cursor: pointer; transition: all 0.25s; letter-spacing: 0.3px;
+  }
+  .btn-submit:hover { background: #b07e22; transform: translateY(-1px); }
 
-  /* Success State */
+  /* Success screen */
   .success-screen {
-    text-align: center; padding: 3rem 1rem;
+    text-align: center; padding: 2rem 1rem;
     display: none;
   }
-  .success-screen.visible { display: block; animation: fadeIn 0.6s ease; }
+  .success-screen.visible { display: block; animation: fadeIn 0.5s ease; }
   .success-icon {
-    width: 80px; height: 80px; border-radius: 50%;
-    background: var(--teal-light); margin: 0 auto 1.8rem;
+    width: 72px; height: 72px; border-radius: 50%;
+    background: var(--teal-light); margin: 0 auto 1.5rem;
     display: flex; align-items: center; justify-content: center;
-    font-size: 2.2rem; color: var(--teal);
+    font-size: 2rem;
   }
   .success-title {
     font-family: 'Playfair Display', serif;
-    font-size: 2rem; font-weight: 700; color: var(--teal);
-    margin-bottom: 1rem;
+    font-size: 1.6rem; font-weight: 700; color: var(--teal);
+    margin-bottom: 0.75rem;
   }
-  .success-sub { font-size: 1rem; color: var(--ink-soft); line-height: 1.8; max-width: 380px; margin: 0 auto 2rem; }
-  
+  .success-sub { font-size: 0.9rem; color: var(--ink-muted); line-height: 1.75; max-width: 340px; margin: 0 auto; }
   .summary-tags {
-    display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
-    margin-bottom: 2rem;
+    display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+    margin: 1.5rem 0;
   }
   .tag {
     background: var(--teal-light); color: var(--teal);
-    border-radius: 50px; padding: 6px 16px;
-    font-size: 0.85rem; font-weight: 600;
+    border-radius: 50px; padding: 4px 14px;
+    font-size: 0.82rem; font-weight: 500;
   }
 
-  /* ── HOMEPAGE SECTIONS (Restored Alignment) ── */
-  
-  /* Why Section (Centered as requested) */
+  /* ── BELOW FOLD ── */
   .why-section {
-    padding: 8rem 8%;
+    padding: 6rem 8%;
     background: var(--cream);
-    text-align: center; /* Enforce center alignment */
   }
   .section-eyebrow {
-    font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase;
-    color: var(--gold); font-weight: 600; margin-bottom: 1.2rem;
-    display: block;
+    font-size: 0.72rem; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--gold); font-weight: 500; margin-bottom: 1rem;
+    text-align: center;
   }
   .section-title {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
     font-weight: 700; color: var(--ink);
-    margin-bottom: 4rem;
-    max-width: 700px; margin-left: auto; margin-right: auto;
-    line-height: 1.2;
+    text-align: center; margin-bottom: 3.5rem;
+    max-width: 560px; margin-left: auto; margin-right: auto;
   }
-  
   .features-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem;
-    text-align: left; /* Keep card content legible while section is centered */
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
   }
   .feature-card {
     background: var(--white);
-    border-radius: var(--radius); padding: 3rem 2.2rem;
+    border-radius: var(--radius); padding: 2rem 1.75rem;
     border: 1px solid var(--border);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
-  .feature-card:hover { transform: translateY(-8px); box-shadow: var(--shadow); }
-  
   .feature-num {
     font-family: 'Playfair Display', serif;
-    font-size: 3rem; font-weight: 700; color: var(--teal-light);
-    line-height: 1; margin-bottom: 1.2rem;
+    font-size: 2.5rem; font-weight: 700; color: var(--teal-light);
+    line-height: 1; margin-bottom: 0.8rem;
     -webkit-text-stroke: 1.5px var(--teal);
   }
-  .feature-name { font-size: 1.15rem; font-weight: 600; color: var(--ink); margin-bottom: 0.8rem; }
-  .feature-desc { font-size: 0.95rem; color: var(--ink-muted); line-height: 1.75; }
+  .feature-name { font-size: 1rem; font-weight: 500; color: var(--ink); margin-bottom: 0.5rem; }
+  .feature-desc { font-size: 0.85rem; color: var(--ink-muted); line-height: 1.7; }
 
-  /* Destinations Strip (Restored) */
+  /* Countries strip */
   .countries-section {
-    padding: 6rem 8%;
+    padding: 4rem 8%;
     background: var(--teal);
-    text-align: center;
-    position: relative; overflow: hidden;
+    overflow: hidden;
   }
+  .countries-section .section-eyebrow { color: rgba(200,147,42,0.9); }
+  .countries-section .section-title { color: var(--white); }
   .countries-strip {
     display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center;
-    max-width: 1000px; margin: 0 auto;
   }
   .country-pill {
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 50px; padding: 0.7rem 1.6rem;
-    color: var(--white); font-size: 0.95rem; font-weight: 500;
-    display: flex; align-items: center; gap: 10px;
-    transition: background 0.2s;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 50px; padding: 0.6rem 1.4rem;
+    color: var(--white); font-size: 0.9rem;
+    display: flex; align-items: center; gap: 8px;
   }
-  .country-pill:hover { background: rgba(255,255,255,0.15); }
 
-  /* Still have questions? Section (Restored) */
+  /* CTA bottom */
   .cta-section {
-    padding: 8rem 8%; text-align: center;
+    padding: 6rem 8%; text-align: center;
     background: var(--gold-light);
-    border-top: 1px solid rgba(200,147,42,0.15);
+    border-top: 1px solid rgba(200,147,42,0.2);
   }
   .cta-title {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 4vw, 3rem); font-weight: 700;
-    color: var(--ink); margin-bottom: 1.2rem;
+    font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700;
+    color: var(--ink); margin-bottom: 1rem;
   }
-  .cta-sub { font-size: 1.1rem; color: var(--ink-soft); margin-bottom: 2.5rem; max-width: 600px; margin-left: auto; margin-right: auto; }
-  
+  .cta-sub { font-size: 0.95rem; color: var(--ink-soft); margin-bottom: 2rem; }
   .btn-cta-big {
     background: var(--teal); color: var(--white);
-    padding: 1.2rem 3rem; border-radius: 50px; border: none;
-    font-family: 'DM Sans', sans-serif; font-size: 1.1rem; font-weight: 600;
-    cursor: pointer; transition: all 0.3s ease; display: inline-block;
+    padding: 1rem 2.5rem; border-radius: 50px; border: none;
+    font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 500;
+    cursor: pointer; transition: all 0.25s; display: inline-block;
     text-decoration: none;
   }
-  .btn-cta-big:hover { background: var(--teal-mid); transform: translateY(-3px); box-shadow: 0 10px 25px rgba(11,92,82,0.3); }
+  .btn-cta-big:hover { background: var(--teal-mid); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(11,92,82,0.25); }
 
-  /* Footer & Quick Contact Email */
+  /* Footer */
   footer {
-    padding: 4rem 8%;
+    padding: 2rem 8%;
     background: var(--ink);
-    color: var(--white);
+    display: flex; align-items: center; justify-content: space-between;
   }
-  .footer-grid {
-    display: flex; justify-content: space-between; align-items: flex-start;
-    margin-bottom: 3rem;
-  }
-  .footer-brand { max-width: 300px; }
-  .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem; }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--white); }
   .footer-logo span { color: var(--gold); }
-  .footer-tagline { font-size: 0.9rem; color: rgba(255,255,255,0.5); line-height: 1.6; }
-  
-  .footer-contact { text-align: right; }
-  .footer-email-link { 
-    color: var(--gold); text-decoration: none; font-weight: 500; font-size: 1.1rem;
-    transition: opacity 0.2s;
-  }
-  .footer-email-link:hover { opacity: 0.8; }
-  
-  .footer-bottom {
-    padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);
-    display: flex; justify-content: space-between; align-items: center;
-    font-size: 0.85rem; color: rgba(255,255,255,0.4);
-  }
+  footer p { font-size: 0.78rem; color: rgba(255,255,255,0.4); }
 
-  /* Form Errors */
-  .field-error { font-size: 0.78rem; color: #e74c3c; margin-top: 6px; display: none; font-weight: 500; }
-  .field-input.error { border-color: #e74c3c; background: #fffcfc; }
+  /* Error */
+  .field-error { font-size: 0.75rem; color: #c0392b; margin-top: 4px; display: none; }
+  .field-input.error { border-color: #e74c3c; }
 
-  /* Responsive Fixes */
-  @media (max-width: 1024px) {
-    .hero { grid-template-columns: 1fr; }
-    .hero-left { padding: 6rem 8% 4rem; text-align: center; }
-    .hero-left::before, .hero-left::after { display: none; }
-    .hero-sub { margin-left: auto; margin-right: auto; }
-    .stats-row { justify-content: center; }
-    .hero-right { padding: 5rem 10%; }
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 5rem 6% 3rem; min-height: 55vw; }
     .features-grid { grid-template-columns: 1fr; }
-  }
-  
-  @media (max-width: 640px) {
-    .option-grid.cols-3 { grid-template-columns: 1fr; }
-    .option-grid.cols-2 { grid-template-columns: 1fr; }
     .fields-row { grid-template-columns: 1fr; }
-    .footer-grid { flex-direction: column; gap: 2rem; text-align: center; align-items: center; }
-    .footer-contact { text-align: center; }
-    .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+    .option-grid.cols-3 { grid-template-columns: 1fr 1fr; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+  @media (max-width: 600px) {
+    .option-grid.cols-2 { grid-template-columns: 1fr; }
+    .option-grid.cols-3 { grid-template-columns: 1fr; }
+    .stats-row { gap: 1.5rem; }
+    nav { padding: 0.85rem 4%; }
   }
 </style>
 </head>
@@ -436,38 +394,34 @@
 
 <nav>
   <div class="logo">EduPath<span>.</span></div>
-  <div class="nav-links">
-    <a href="#destinations">Destinations</a>
-    <a href="#form-section" class="nav-cta">Apply Now</a>
-  </div>
+  <a href="#form-section" class="nav-cta">Register Interest</a>
 </nav>
 
 <section class="hero" id="form-section">
 
   <div class="hero-left">
-    <span class="eyebrow">Trusted Global Education Partner</span>
+    <p class="eyebrow">Trusted by 50,000+ Students</p>
     <h1 class="hero-heading">
-      Your Future Awaits.<br>
-      <em>Study Anywhere.</em>
+      Your Dream Degree,<br>
+      <em>Any Country.</em>
     </h1>
     <p class="hero-sub">
-      From Ivy League dreams to European innovation hubs, we provide expert guidance for Indian students seeking world-class degrees abroad.
+      From our Education Fairs across India to your university admission abroad — we guide every step of your journey to global education.
     </p>
-    
     <div class="stats-row">
       <div class="stat-item">
         <div class="stat-num">15+</div>
-        <div class="stat-label">Years of Experience</div>
+        <div class="stat-label">Years of Fairs</div>
       </div>
       <div class="stat-divider"></div>
       <div class="stat-item">
         <div class="stat-num">50K+</div>
-        <div class="stat-label">Success Stories</div>
+        <div class="stat-label">Students Guided</div>
       </div>
       <div class="stat-divider"></div>
       <div class="stat-item">
         <div class="stat-num">30+</div>
-        <div class="stat-label">Global Partners</div>
+        <div class="stat-label">Countries</div>
       </div>
     </div>
   </div>
@@ -476,8 +430,8 @@
 
     <div id="form-wrapper">
       <div class="form-header">
-        <h2 class="form-title">Start Your Journey</h2>
-        <p class="form-sub">Complete this form to receive a personalized study plan and consultation.</p>
+        <h2 class="form-title">Find Your Ideal Program</h2>
+        <p class="form-sub">Takes less than 90 seconds. A counsellor will reach out within 24 hours.</p>
       </div>
 
       <div class="progress-bar">
@@ -488,213 +442,320 @@
       </div>
 
       <div class="step visible" id="step-1">
-        <span class="step-label">Step 1 of 4 &mdash; Degree Level</span>
-        <h3 style="font-family:'Playfair Display',serif; font-size:1.25rem; margin-bottom:0.5rem;">Which level of study are you targeting?</h3>
-        <p style="font-size:0.85rem; color:var(--ink-muted); margin-bottom:1.5rem;">Select your intended academic stage</p>
-        
+        <p class="step-label">Step 1 of 4 &mdash; Study Level</p>
+        <h3 style="font-family:'Playfair Display',serif; font-size:1.15rem; margin-bottom:0.4rem;">What level are you planning to study?</h3>
+        <p class="hint">Select one to continue</p>
         <div class="option-grid cols-2">
           <div class="option-card" data-step="1" data-value="Undergraduate (UG)" onclick="selectOption(this)">
             <div class="option-icon">🎓</div>
-            <div class="option-name">Undergraduate</div>
-            <div class="option-desc">Bachelors, Diplomas, and Foundation courses</div>
+            <div class="option-name">Undergraduate (UG)</div>
+            <div class="option-desc">Bachelor's degree programs</div>
           </div>
           <div class="option-card" data-step="1" data-value="Postgraduate (PG)" onclick="selectOption(this)">
             <div class="option-icon">📚</div>
-            <div class="option-name">Postgraduate</div>
-            <div class="option-desc">Masters, MBA, and Research Doctorates</div>
+            <div class="option-name">Postgraduate (PG)</div>
+            <div class="option-desc">Master's, MBA, PhD programs</div>
           </div>
         </div>
-        
         <div class="btn-row">
-          <button class="btn-next" id="btn-next-1" onclick="goStep(2)" disabled>Continue to Programs →</button>
+          <button class="btn-next" id="btn-next-1" onclick="goStep(2)" disabled>Continue →</button>
         </div>
       </div>
 
       <div class="step" id="step-2">
-        <span class="step-label">Step 2 of 4 &mdash; Program Interest</span>
-        <h3 style="font-family:'Playfair Display',serif; font-size:1.25rem; margin-bottom:0.5rem;">Which field interests you most?</h3>
-        <p style="font-size:0.85rem; color:var(--ink-muted); margin-bottom:1.5rem;">Select one or more categories</p>
-        
+        <p class="step-label">Step 2 of 4 &mdash; Field of Study</p>
+        <h3 style="font-family:'Playfair Display',serif; font-size:1.15rem; margin-bottom:0.4rem;">Which field interests you most?</h3>
+        <p class="hint">You can select multiple fields</p>
         <div class="option-grid cols-3" id="course-grid">
-          <div class="option-card" data-step="2" data-value="STEM" onclick="selectOption(this, true)">
+          <div class="option-card" data-step="2" data-value="Engineering & Technology" onclick="selectOption(this, true)">
             <div class="option-icon">⚙️</div>
-            <div class="option-name">STEM</div>
+            <div class="option-name">Engineering & Tech</div>
           </div>
-          <div class="option-card" data-step="2" data-value="Business" onclick="selectOption(this, true)">
+          <div class="option-card" data-step="2" data-value="Business & MBA" onclick="selectOption(this, true)">
             <div class="option-icon">💼</div>
-            <div class="option-name">Business</div>
+            <div class="option-name">Business & MBA</div>
           </div>
-          <div class="option-card" data-step="2" data-value="Healthcare" onclick="selectOption(this, true)">
+          <div class="option-card" data-step="2" data-value="Medicine & Healthcare" onclick="selectOption(this, true)">
             <div class="option-icon">🏥</div>
-            <div class="option-name">Health</div>
+            <div class="option-name">Medicine & Health</div>
           </div>
-          <div class="option-card" data-step="2" data-value="Creative Arts" onclick="selectOption(this, true)">
+          <div class="option-card" data-step="2" data-value="Arts & Design" onclick="selectOption(this, true)">
             <div class="option-icon">🎨</div>
-            <div class="option-name">Arts</div>
+            <div class="option-name">Arts & Design</div>
           </div>
-          <div class="option-card" data-step="2" data-value="Law & Policy" onclick="selectOption(this, true)">
+          <div class="option-card" data-step="2" data-value="Law" onclick="selectOption(this, true)">
             <div class="option-icon">⚖️</div>
             <div class="option-name">Law</div>
           </div>
-          <div class="option-card" data-step="2" data-value="AI & Data Science" onclick="selectOption(this, true)">
+          <div class="option-card" data-step="2" data-value="Data Science & AI" onclick="selectOption(this, true)">
             <div class="option-icon">🤖</div>
-            <div class="option-name">Data/AI</div>
+            <div class="option-name">Data Science & AI</div>
+          </div>
+          <div class="option-card" data-step="2" data-value="Social Sciences" onclick="selectOption(this, true)">
+            <div class="option-icon">🌍</div>
+            <div class="option-name">Social Sciences</div>
+          </div>
+          <div class="option-card" data-step="2" data-value="Natural Sciences" onclick="selectOption(this, true)">
+            <div class="option-icon">🔬</div>
+            <div class="option-name">Natural Sciences</div>
+          </div>
+          <div class="option-card" data-step="2" data-value="Hospitality & Tourism" onclick="selectOption(this, true)">
+            <div class="option-icon">🏨</div>
+            <div class="option-name">Hospitality & Tourism</div>
           </div>
         </div>
-
-        <div class="manual-input-box">
-          <label class="field-label" for="f-course-manual">Don't see your course? Type it here:</label>
-          <input type="text" class="field-input" id="f-course-manual" placeholder="e.g. Marine Biology, Psychology..." oninput="updateNextBtns()">
-        </div>
-
         <div class="btn-row">
           <button class="btn-back" onclick="goStep(1)">← Back</button>
-          <button class="btn-next" id="btn-next-2" onclick="goStep(3)" disabled>Continue to Destinations →</button>
+          <button class="btn-next" id="btn-next-2" onclick="goStep(3)" disabled>Continue →</button>
         </div>
       </div>
 
       <div class="step" id="step-3">
-        <span class="step-label">Step 3 of 4 &mdash; Study Destinations</span>
-        <h3 style="font-family:'Playfair Display',serif; font-size:1.25rem; margin-bottom:0.5rem;">Where do you dream of studying?</h3>
-        <p style="font-size:0.85rem; color:var(--ink-muted); margin-bottom:1.5rem;">Select all countries you're exploring</p>
-        
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:1.5rem;" id="country-grid">
+        <p class="step-label">Step 3 of 4 &mdash; Destination</p>
+        <h3 style="font-family:'Playfair Display',serif; font-size:1.15rem; margin-bottom:0.4rem;">Where do you dream of studying?</h3>
+        <p class="hint">Select all countries you're open to</p>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:1.5rem;" id="country-grid">
           <div class="country-card" data-step="3" data-value="USA" onclick="selectOption(this, true)">
             <span class="flag">🇺🇸</span>
             <div class="country-info">
               <div class="country-name">United States</div>
-              <div class="country-note">Top Research Hub</div>
+              <div class="country-note">Ivy League & Top Research</div>
             </div>
           </div>
           <div class="country-card" data-step="3" data-value="UK" onclick="selectOption(this, true)">
             <span class="flag">🇬🇧</span>
             <div class="country-info">
               <div class="country-name">United Kingdom</div>
-              <div class="country-note">Prestigious Heritage</div>
+              <div class="country-note">Oxford, Cambridge & more</div>
             </div>
           </div>
           <div class="country-card" data-step="3" data-value="Canada" onclick="selectOption(this, true)">
             <span class="flag">🇨🇦</span>
             <div class="country-info">
               <div class="country-name">Canada</div>
-              <div class="country-note">Immigration Friendly</div>
+              <div class="country-note">PR pathway after study</div>
             </div>
           </div>
           <div class="country-card" data-step="3" data-value="Australia" onclick="selectOption(this, true)">
             <span class="flag">🇦🇺</span>
             <div class="country-info">
               <div class="country-name">Australia</div>
-              <div class="country-note">Quality Lifestyle</div>
+              <div class="country-note">World-class universities</div>
             </div>
           </div>
           <div class="country-card" data-step="3" data-value="Germany" onclick="selectOption(this, true)">
             <span class="flag">🇩🇪</span>
             <div class="country-info">
               <div class="country-name">Germany</div>
-              <div class="country-note">Low Cost Tech Hub</div>
+              <div class="country-note">Low tuition, top tech</div>
             </div>
           </div>
           <div class="country-card" data-step="3" data-value="Ireland" onclick="selectOption(this, true)">
             <span class="flag">🇮🇪</span>
             <div class="country-info">
               <div class="country-name">Ireland</div>
-              <div class="country-note">Tech Capital of EU</div>
+              <div class="country-note">2-year post-study visa</div>
+            </div>
+          </div>
+          <div class="country-card" data-step="3" data-value="New Zealand" onclick="selectOption(this, true)">
+            <span class="flag">🇳🇿</span>
+            <div class="country-info">
+              <div class="country-name">New Zealand</div>
+              <div class="country-note">Safe & welcoming</div>
+            </div>
+          </div>
+          <div class="country-card" data-step="3" data-value="Singapore / UAE" onclick="selectOption(this, true)">
+            <span class="flag">🌏</span>
+            <div class="country-info">
+              <div class="country-name">Singapore / UAE</div>
+              <div class="country-note">Asia & Middle East hubs</div>
             </div>
           </div>
         </div>
-
-        <div class="manual-input-box">
-          <label class="field-label" for="f-country-manual">Interested in another country?</label>
-          <input type="text" class="field-input" id="f-country-manual" placeholder="e.g. France, Singapore, Japan..." oninput="updateNextBtns()">
-        </div>
-
         <div class="btn-row">
           <button class="btn-back" onclick="goStep(2)">← Back</button>
-          <button class="btn-next" id="btn-next-3" onclick="goStep(4)" disabled>Continue to Contact →</button>
+          <button class="btn-next" id="btn-next-3" onclick="goStep(4)" disabled>Continue →</button>
         </div>
       </div>
 
       <div class="step" id="step-4">
-        <span class="step-label">Step 4 of 4 &mdash; Contact Information</span>
-        <h3 style="font-family:'Playfair Display',serif; font-size:1.25rem; margin-bottom:0.5rem;">Let's get in touch.</h3>
-        <p style="font-size:0.85rem; color:var(--ink-muted); margin-bottom:1.5rem;">A senior counsellor will call you within 24 hours.</p>
+        <p class="step-label">Step 4 of 4 &mdash; Your Details</p>
+        <h3 style="font-family:'Playfair Display',serif; font-size:1.15rem; margin-bottom:0.4rem;">Almost there! How do we reach you?</h3>
+        <p class="hint" style="margin-bottom:1.2rem;">A certified counsellor will contact you within 24 hours</p>
 
         <div class="fields-row">
           <div class="field-group">
-            <label class="field-label" for="f-name">Your Full Name *</label>
-            <input class="field-input" type="text" id="f-name" placeholder="Rahul Kumar">
-            <div class="field-error" id="err-name">Full name is required</div>
+            <label class="field-label" for="f-name">Full Name *</label>
+            <input class="field-input" type="text" id="f-name" placeholder="Priya Sharma">
+            <div class="field-error" id="err-name">Please enter your name</div>
           </div>
           <div class="field-group">
             <label class="field-label" for="f-phone">Mobile Number *</label>
-            <input class="field-input" type="tel" id="f-phone" placeholder="+91 99000 00000">
-            <div class="field-error" id="err-phone">Enter a valid 10-digit number</div>
+            <input class="field-input" type="tel" id="f-phone" placeholder="+91 98765 43210">
+            <div class="field-error" id="err-phone">Please enter a valid number</div>
           </div>
         </div>
-        
         <div class="field-group">
           <label class="field-label" for="f-email">Email Address *</label>
-          <input class="field-input" type="email" id="f-email" placeholder="rahul@example.com">
-          <div class="field-error" id="err-email">Valid email is required</div>
+          <input class="field-input" type="email" id="f-email" placeholder="priya@example.com">
+          <div class="field-error" id="err-email">Please enter a valid email</div>
         </div>
-
         <div class="field-group">
-          <label class="field-label" for="f-city">Your Current City</label>
-          <input class="field-input" type="text" id="f-city" placeholder="Mumbai, Delhi, Bangalore...">
+          <label class="field-label" for="f-city">Your City</label>
+          <input class="field-input" type="text" id="f-city" placeholder="Hyderabad">
         </div>
-
         <div class="field-group">
-          <label class="field-label" for="f-intake">Target Intake Year</label>
+          <label class="field-label" for="f-intake">Preferred Intake Year</label>
           <select class="field-input" id="f-intake">
-            <option value="">— Select Year —</option>
-            <option>Fall 2025</option>
-            <option>Spring 2026</option>
-            <option>Fall 2026</option>
-            <option>Exploring Later</option>
+            <option value="">— Select year —</option>
+            <option>2025</option>
+            <option>2026</option>
+            <option>2027</option>
+            <option>Still exploring</option>
           </select>
         </div>
 
         <div class="btn-row">
           <button class="btn-back" onclick="goStep(3)">← Back</button>
-          <button class="btn-submit" onclick="submitForm()">🎓 Get Free Consultation</button>
+          <button class="btn-submit" onclick="submitForm()">🎓 Submit My Interest</button>
         </div>
       </div>
     </div><div class="success-screen" id="success-screen">
-      <div class="success-icon">✓</div>
-      <h2 class="success-title">Application Received!</h2>
-      <p class="success-sub">Thank you, <strong id="success-name">Student</strong>. Our expert team is reviewing your profile and will contact you shortly.</p>
+      <div class="success-icon">🎓</div>
+      <h2 class="success-title">You're on your way!</h2>
+      <p class="success-sub">Thank you, <strong id="success-name">friend</strong>. Our counsellor will reach out to you within 24 hours to discuss your dream abroad.</p>
       <div class="summary-tags" id="summary-tags"></div>
-      <p style="font-size:0.85rem; color:var(--ink-muted);">A confirmation has been sent to your email.</p>
+      <p style="font-size:0.82rem; color:var(--ink-muted); margin-top:0.5rem;">Check your email for a confirmation.</p>
     </div>
 
-  </div></section>
+    <div style="margin-top: 2rem; padding: 1.5rem; background: var(--cream); border-radius: var(--radius); border: 1px solid var(--border); text-align: center;">
+      <p style="font-size: 0.72rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 0.5rem;">Direct Contact</p>
+      <h3 style="font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--ink); margin-bottom: 0.5rem;">Reach out to us directly</h3>
+      <p style="font-size: 0.85rem; color: var(--ink-soft); margin-bottom: 1rem;">For those who prefer email, you can reach out directly to our help desk.</p>
+      <a href="mailto:epathinternational@gmail.com" style="font-size: 1.1rem; color: var(--teal); font-weight: 500; text-decoration: none;">epathinternational@gmail.com</a>
+    </div>
 
-<section class="why-section">
-  <span class="section-eyebrow">The EduPath Advantage</span>
-  <h2 class="section-title">Your Bridge to Global Academic Excellence</h2>
-  
-  <div class="features-grid">
-    <div class="feature-card">
-      <div class="feature-num">01</div>
-      <div class="feature-name">Global University Network</div>
-      <div class="feature-desc">Access direct partnerships with over 500+ universities worldwide, ensuring faster application processing and priority review.</div>
+    <div style="margin-top: 1.5rem; padding: 1.5rem; background: var(--cream); border-radius: var(--radius); border: 1px solid var(--border);">
+      <p style="font-size: 0.72rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 0.5rem; text-align: center;">About Us</p>
+      <h3 style="font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--ink); margin-bottom: 1rem; text-align: center;">Who We Are</h3>
+      <p style="font-size: 0.85rem; color: var(--ink-soft); line-height: 1.6; margin-bottom: 1rem;">
+        E3 International, the global education division of E3 Events & Entertainments Pvt Ltd, is dedicated to guiding students toward the right international education opportunities.
+      </p>
+      <p style="font-size: 0.85rem; font-weight: 500; color: var(--ink); margin-bottom: 0.5rem;">We connect ambitious students with:</p>
+      <ul style="font-size: 0.85rem; color: var(--ink-soft); margin-left: 1.2rem; margin-bottom: 1rem;">
+        <li>Top universities worldwide</li>
+        <li>Career-focused courses</li>
+        <li>Trusted education experts</li>
+      </ul>
+      <p style="font-size: 0.85rem; color: var(--ink-soft); line-height: 1.6;">
+        Our mission is simple: Make global education accessible, transparent, and achievable.
+      </p>
     </div>
-    <div class="feature-card">
-      <div class="feature-num">02</div>
-      <div class="feature-name">Scholarship Expertise</div>
-      <div class="feature-desc">Our students secured over $5M in grants last year. We match your profile with exclusive funding opportunities others miss.</div>
+
+    <div style="margin-top: 1.5rem; padding: 1.5rem; background: var(--cream); border-radius: var(--radius); border: 1px solid var(--border);">
+      <p style="font-size: 0.72rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 0.5rem; text-align: center;">Your Journey</p>
+      <h3 style="font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--ink); margin-bottom: 1rem; text-align: center;">How It Works?</h3>
+      <div style="font-size: 0.85rem; color: var(--ink-soft); line-height: 1.8; text-align: center;">
+        Register Online <span style="color: var(--gold); font-weight: bold;">&gt;</span> Get a Call from Our Counselor <span style="color: var(--gold); font-weight: bold;">&gt;</span> Attend Edu Fair / Counseling Session <span style="color: var(--gold); font-weight: bold;">&gt;</span> Start Your Study Abroad Journey
+      </div>
     </div>
-    <div class="feature-card">
-      <div class="feature-num">03</div>
-      <div class="feature-name">Visa & Legal Guidance</div>
-      <div class="feature-desc">A 98% visa success rate. Our certified experts handle documentation, mock interviews, and financial proofing seamlessly.</div>
+    </div></section>
+
+<section style="padding: 4rem 5%; background: var(--white); text-align: center; border-bottom: 1px solid var(--border);">
+  <p class="section-eyebrow">Direct Contact</p>
+  <h2 class="section-title" style="margin-bottom: 1rem;">Have a question? Reach out to us directly</h2>
+  <p style="font-size: 1rem; color: var(--ink-soft); margin-bottom: 1.5rem;">For those who prefer email, you can reach out directly to our help desk.</p>
+  <a href="mailto:epathinternational@gmail.com" style="font-size: 1.2rem; color: var(--teal); font-weight: 500; text-decoration: none;">epathinternational@gmail.com</a>
+</section>
+
+<section style="padding: 5rem 5%; background: #fff; text-align: center;">
+  <p class="section-eyebrow">About Us</p>
+  <h2 class="section-title" style="margin-bottom: 2rem;">Who We Are</h2>
+  <div style="max-width: 750px; margin: 0 auto;">
+    <p style="font-size: 1rem; color: var(--ink-soft); line-height: 1.8; margin-bottom: 2rem;">
+      E3 International, the global education division of E3 Events & Entertainments Pvt Ltd, is dedicated to guiding students toward the right international education opportunities.
+    </p>
+    
+    <h3 style="font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--ink); margin-bottom: 1.5rem;">We connect ambitious students with:</h3>
+    
+    <div style="display: flex; flex-direction: column; gap: 1rem; align-items: center; margin-bottom: 2.5rem;">
+      <div style="background: var(--cream); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 2rem; width: 100%; max-width: 400px;">
+        <p style="font-size: 0.95rem; font-weight: 500; color: var(--ink);">🏛️ Top universities worldwide</p>
+      </div>
+      <div style="background: var(--cream); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 2rem; width: 100%; max-width: 400px;">
+        <p style="font-size: 0.95rem; font-weight: 500; color: var(--ink);">📚 Career-focused courses</p>
+      </div>
+      <div style="background: var(--cream); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 2rem; width: 100%; max-width: 400px;">
+        <p style="font-size: 0.95rem; font-weight: 500; color: var(--ink);">🧑‍🏫 Trusted education experts</p>
+      </div>
+    </div>
+    
+    <div style="background: var(--gold-light); padding: 1.5rem; border-radius: 10px; border: 1px solid rgba(200,147,42,0.2);">
+      <p style="font-size: 1rem; font-weight: 500; color: var(--ink);"><strong>Our mission is simple:</strong> Make global education accessible, transparent, and achievable.</p>
     </div>
   </div>
 </section>
 
-<section class="countries-section" id="destinations">
-  <span class="section-eyebrow">Our Global Footprint</span>
-  <h2 class="section-title" style="color:var(--white);">Where Would You Like to Go?</h2>
+<section style="padding: 5rem 5%; background: var(--cream); text-align: center;">
+  <p class="section-eyebrow">Your Journey</p>
+  <h2 class="section-title" style="margin-bottom: 3.5rem;">How It Works?</h2>
+  
+  <div style="display: flex; gap: 1rem; justify-content: center; align-items: center; flex-wrap: wrap; max-width: 1100px; margin: 0 auto;">
+    
+    <div style="background: #fff; padding: 1.5rem; border-radius: var(--radius); border: 1px solid var(--border); text-align: center; flex: 1; min-width: 220px;">
+      <div style="font-weight: 500; color: var(--teal); font-size: 0.9rem; margin-bottom: 0.5rem;">STEP 1</div>
+      <h3 style="font-size: 1rem; font-weight: 500; color: var(--ink);">Register Online</h3>
+    </div>
+    
+    <div style="font-size: 1.5rem; color: var(--gold); font-weight: bold;">&gt;</div>
+    
+    <div style="background: #fff; padding: 1.5rem; border-radius: var(--radius); border: 1px solid var(--border); text-align: center; flex: 1; min-width: 220px;">
+      <div style="font-weight: 500; color: var(--teal); font-size: 0.9rem; margin-bottom: 0.5rem;">STEP 2</div>
+      <h3 style="font-size: 1rem; font-weight: 500; color: var(--ink);">Get a Call from Our Counselor</h3>
+    </div>
+    
+    <div style="font-size: 1.5rem; color: var(--gold); font-weight: bold;">&gt;</div>
+    
+    <div style="background: #fff; padding: 1.5rem; border-radius: var(--radius); border: 1px solid var(--border); text-align: center; flex: 1; min-width: 220px;">
+      <div style="font-weight: 500; color: var(--teal); font-size: 0.9rem; margin-bottom: 0.5rem;">STEP 3</div>
+      <h3 style="font-size: 1rem; font-weight: 500; color: var(--ink);">Attend Edu Fair / Counseling Session</h3>
+    </div>
+    
+    <div style="font-size: 1.5rem; color: var(--gold); font-weight: bold;">&gt;</div>
+    
+    <div style="background: #fff; padding: 1.5rem; border-radius: var(--radius); border: 1px solid var(--border); text-align: center; flex: 1; min-width: 220px;">
+      <div style="font-weight: 500; color: var(--teal); font-size: 0.9rem; margin-bottom: 0.5rem;">STEP 4</div>
+      <h3 style="font-size: 1rem; font-weight: 500; color: var(--ink);">Start Your Study Abroad Journey</h3>
+    </div>
+    
+  </div>
+</section>
+
+<section class="why-section">
+  <p class="section-eyebrow">Why EduPath</p>
+  <h2 class="section-title">From India's Largest Education Fairs to Your Abroad Admission</h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-num">01</div>
+      <div class="feature-name">Personalised Counselling</div>
+      <div class="feature-desc">One-on-one sessions with certified counsellors who understand Indian student needs and match you to the right course and university.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">02</div>
+      <div class="feature-name">End-to-End Support</div>
+      <div class="feature-desc">From shortlisting universities to SOP reviews, visa guidance, accommodation, and pre-departure briefings — we're with you every step.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">03</div>
+      <div class="feature-name">Scholarship Matching</div>
+      <div class="feature-desc">We actively connect students with scholarships, grants, and financial aid opportunities at partner universities across 30+ countries.</div>
+    </div>
+  </div>
+</section>
+
+<section class="countries-section">
+  <p class="section-eyebrow">Destinations We Cover</p>
+  <h2 class="section-title" style="color:var(--white);">Study in 30+ Countries Worldwide</h2>
   <div class="countries-strip">
     <div class="country-pill">🇺🇸 USA</div>
     <div class="country-pill">🇬🇧 UK</div>
@@ -702,66 +763,43 @@
     <div class="country-pill">🇦🇺 Australia</div>
     <div class="country-pill">🇩🇪 Germany</div>
     <div class="country-pill">🇮🇪 Ireland</div>
-    <div class="country-pill">🇳🇱 Netherlands</div>
-    <div class="country-pill">🇸🇬 Singapore</div>
-    <div class="country-pill">🇫🇷 France</div>
     <div class="country-pill">🇳🇿 New Zealand</div>
+    <div class="country-pill">🇸🇬 Singapore</div>
+    <div class="country-pill">🇳🇱 Netherlands</div>
+    <div class="country-pill">🇫🇷 France</div>
+    <div class="country-pill">🇦🇪 UAE</div>
+    <div class="country-pill">🇯🇵 Japan</div>
   </div>
 </section>
 
 <section class="cta-section">
-  <h2 class="cta-title">Not sure where to start?</h2>
-  <p class="cta-sub">Consult with an expert to find the best course and country for your career goals.</p>
-  <a href="#form-section" class="btn-cta-big">Schedule a Free Discovery Call →</a>
+  <h2 class="cta-title">Still have questions? Let's talk.</h2>
+  <p class="cta-sub">Our counsellors hold free, no-obligation consultations every day.</p>
+  <a href="#form-section" class="btn-cta-big">Register Your Interest Free →</a>
 </section>
 
 <footer>
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <div class="footer-logo">EduPath<span>.</span></div>
-      <p class="footer-tagline">Empowering Indian students to achieve global educational success through personalized mentorship and end-to-end admission support.</p>
-    </div>
-    <div class="footer-contact">
-      <p style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; opacity: 0.6;">Reach Us Directly</p>
-      <a href="mailto:epathinternational@gmail.com" class="footer-email-link">epathinternational@gmail.com</a>
-    </div>
-  </div>
-  
-  <div class="footer-bottom">
-    <p>© 2025 EduPath Consultants. All Rights Reserved.</p>
-    <div style="display:flex; gap:1.5rem;">
-      <span>Terms & Privacy</span>
-      <span>Education Partner India</span>
-    </div>
-  </div>
+  <div class="footer-logo">EduPath<span>.</span></div>
+  <p>© 2025 EduPath Education Consultants. All rights reserved.</p>
 </footer>
 
 <script>
-  /* ─────────────────────────────────────────────────────────────
-     FORM LOGIC & STATE MANAGEMENT
-     ───────────────────────────────────────────────────────────── */
   const state = {
     step1: null,
     step2: [],
     step3: [],
   };
 
-  /**
-   * Handles multi-select and single-select for grid options
-   */
   function selectOption(el, multi = false) {
     const step = el.dataset.step;
-    const val = el.dataset.value;
-    const key = 'step' + step;
-
     if (!multi) {
-      // Single select logic
       document.querySelectorAll(`[data-step="${step}"]`).forEach(c => c.classList.remove('selected'));
       el.classList.add('selected');
-      state[key] = val;
+      state['step' + step] = el.dataset.value;
     } else {
-      // Multi-select toggle logic
       el.classList.toggle('selected');
+      const key = 'step' + step;
+      const val = el.dataset.value;
       if (el.classList.contains('selected')) {
         if (!state[key].includes(val)) state[key].push(val);
       } else {
@@ -771,151 +809,106 @@
     updateNextBtns();
   }
 
-  /**
-   * Updates button states based on selection or manual input
-   */
   function updateNextBtns() {
-    // Step 1 check
     document.getElementById('btn-next-1').disabled = !state.step1;
-    
-    // Step 2 check (Grid or Manual Input)
-    const manualCourse = document.getElementById('f-course-manual').value.trim();
-    document.getElementById('btn-next-2').disabled = (state.step2.length === 0 && !manualCourse);
-    
-    // Step 3 check (Grid or Manual Input)
-    const manualCountry = document.getElementById('f-country-manual').value.trim();
-    document.getElementById('btn-next-3').disabled = (state.step3.length === 0 && !manualCountry);
+    document.getElementById('btn-next-2').disabled = state.step2.length === 0;
+    document.getElementById('btn-next-3').disabled = state.step3.length === 0;
   }
 
-  /**
-   * Navigation between form steps
-   */
   function goStep(n) {
-    // Hide all steps
     document.querySelectorAll('.step').forEach(s => s.classList.remove('visible'));
-    // Show target step
     document.getElementById('step-' + n).classList.add('visible');
-    
-    // Update progress bar UI
     ['pb-1','pb-2','pb-3','pb-4'].forEach((id, i) => {
       const el = document.getElementById(id);
       el.classList.remove('active','done');
       if (i + 1 < n) el.classList.add('done');
       else if (i + 1 === n) el.classList.add('active');
     });
-
-    // Scroll back to top of form for mobile
     document.getElementById('form-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
-  /**
-   * Validates contact details in final step
-   */
   function validateContact() {
-    let isValid = true;
+    let ok = true;
     const name = document.getElementById('f-name').value.trim();
     const phone = document.getElementById('f-phone').value.trim();
     const email = document.getElementById('f-email').value.trim();
 
-    const toggleError = (errId, inputId, isError) => {
-      document.getElementById(errId).style.display = isError ? 'block' : 'none';
-      document.getElementById(inputId).classList.toggle('error', isError);
+    const showErr = (id, inputId, show) => {
+      document.getElementById(id).style.display = show ? 'block' : 'none';
+      document.getElementById(inputId).classList.toggle('error', show);
     };
 
-    // Name Validation
-    if (!name) { toggleError('err-name', 'f-name', true); isValid = false; } 
-    else toggleError('err-name', 'f-name', false);
+    if (!name) { showErr('err-name','f-name',true); ok = false; } else showErr('err-name','f-name',false);
+    if (!phone || phone.replace(/\D/g,'').length < 10) { showErr('err-phone','f-phone',true); ok = false; } else showErr('err-phone','f-phone',false);
+    if (!email || !email.includes('@')) { showErr('err-email','f-email',true); ok = false; } else showErr('err-email','f-email',false);
 
-    // Phone Validation (Min 10 digits)
-    if (!phone || phone.replace(/\D/g,'').length < 10) { toggleError('err-phone', 'f-phone', true); isValid = false; } 
-    else toggleError('err-phone', 'f-phone', false);
-
-    // Email Validation (Simple check)
-    if (!email || !email.includes('@') || email.length < 5) { toggleError('err-email', 'f-email', true); isValid = false; } 
-    else toggleError('err-email', 'f-email', false);
-
-    return isValid;
+    return ok;
   }
 
   /* ─────────────────────────────────────────────────────────────
-     GOOGLE FORMS CONFIGURATION
+     GOOGLE FORMS CONFIG
+     Replace the values below after completing the setup steps.
      ───────────────────────────────────────────────────────────── */
-  const GOOGLE_FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSeg7Kndf1mpmCwdmFfq6nvZ5G3-zKgmUz-UVqWadZ9QG9jJ5g/formResponse';
+  const GOOGLE_FORM_ACTION =
+    'https://docs.google.com/forms/d/e/1FAIpQLSeg7Kndf1mpmCwdmFfq6nvZ5G3-zKgmUz-UVqWadZ9QG9jJ5g/formResponse';
 
   const FIELD_IDS = {
-    name:      'entry.517016014', 
-    phone:     'entry.1000331561',
-    email:     'entry.1020126473',
-    city:      'entry.1261801159',
-    intake:    'entry.704805531',
-    level:     'entry.1766189794',
-    courses:   'entry.1154804339',
-    countries: 'entry.1625209477',
+    name:     'entry.517016014',   // Full Name
+    phone:    'entry.1000331561',   // Mobile Number
+    email:    'entry.1020126473',   // Email Address
+    city:     'entry.1261801159',   // City
+    intake:   'entry.704805531',   // Intake Year
+    level:    'entry.1766189794',   // Study Level (UG/PG)
+    courses:  'entry.1154804339',   // Field of Study (comma-joined)
+    countries:'entry.1625209477',   // Countries (comma-joined)
   };
+  /* ───────────────────────────────────────────────────────────── */
 
-  /**
-   * Final submission to Google Sheets
-   */
   async function submitForm() {
     if (!validateContact()) return;
 
-    const submitBtn = document.querySelector('.btn-submit');
-    const originalText = submitBtn.textContent;
-    submitBtn.textContent = 'Processing...';
-    submitBtn.disabled = true;
+    const btn = document.querySelector('.btn-submit');
+    btn.textContent = 'Submitting…';
+    btn.disabled = true;
 
-    // Collate Manual + Selected data
-    const manualCourse = document.getElementById('f-course-manual').value.trim();
-    const fullCourses = [...state.step2];
-    if (manualCourse) fullCourses.push(manualCourse);
+    const name     = document.getElementById('f-name').value.trim();
+    const phone    = document.getElementById('f-phone').value.trim();
+    const email    = document.getElementById('f-email').value.trim();
+    const city     = document.getElementById('f-city').value.trim();
+    const intake   = document.getElementById('f-intake').value;
+    const courses  = state.step2.join(', ');
+    const countries= state.step3.join(', ');
 
-    const manualCountry = document.getElementById('f-country-manual').value.trim();
-    const fullCountries = [...state.step3];
-    if (manualCountry) fullCountries.push(manualCountry);
-
-    // Capture User Info
-    const name = document.getElementById('f-name').value.trim();
-    const phone = document.getElementById('f-phone').value.trim();
-    const email = document.getElementById('f-email').value.trim();
-    const city = document.getElementById('f-city').value.trim();
-    const intake = document.getElementById('f-intake').value;
-
-    // Build Form Data
-    const formData = new FormData();
-    formData.append(FIELD_IDS.name, name);
-    formData.append(FIELD_IDS.phone, phone);
-    formData.append(FIELD_IDS.email, email);
-    formData.append(FIELD_IDS.city, city);
-    formData.append(FIELD_IDS.intake, intake);
-    formData.append(FIELD_IDS.level, state.step1 || '');
-    formData.append(FIELD_IDS.courses, fullCourses.join(', '));
-    formData.append(FIELD_IDS.countries, fullCountries.join(', '));
+    const body = new FormData();
+    body.append(FIELD_IDS.name,      name);
+    body.append(FIELD_IDS.phone,     phone);
+    body.append(FIELD_IDS.email,     email);
+    body.append(FIELD_IDS.city,      city);
+    body.append(FIELD_IDS.intake,    intake);
+    body.append(FIELD_IDS.level,     state.step1 || '');
+    body.append(FIELD_IDS.courses,   courses);
+    body.append(FIELD_IDS.countries, countries);
 
     try {
-      // no-cors mode allows submission even if Google blocks read-access
-      await fetch(GOOGLE_FORM_ACTION, { method: 'POST', mode: 'no-cors', body: formData });
-    } catch (err) {
-      console.warn('Submission network trace closed.');
+      /* Google Forms blocks CORS, so we use no-cors — the request
+         still lands in your Sheet even though we get an opaque response. */
+      await fetch(GOOGLE_FORM_ACTION, { method: 'POST', mode: 'no-cors', body });
+    } catch (e) {
+      /* Swallow network errors — opaque responses always throw in no-cors */
     }
 
-    // Prepare UI for success
+    /* Show success regardless (no-cors gives no status to check) */
     document.getElementById('success-name').textContent = name.split(' ')[0];
-    const tagsContainer = document.getElementById('summary-tags');
-    tagsContainer.innerHTML = '';
-    
-    // Create visualization of selected path
-    [state.step1, ...fullCourses, ...fullCountries].filter(Boolean).forEach(val => {
-      const chip = document.createElement('span');
-      chip.className = 'tag';
-      chip.textContent = val;
-      tagsContainer.appendChild(chip);
+    const tags = document.getElementById('summary-tags');
+    tags.innerHTML = '';
+    [state.step1, ...state.step2, ...state.step3].filter(Boolean).forEach(v => {
+      const t = document.createElement('span');
+      t.className = 'tag'; t.textContent = v;
+      tags.appendChild(t);
     });
-
-    // Toggle Visibility
     document.getElementById('form-wrapper').style.display = 'none';
     document.getElementById('success-screen').classList.add('visible');
   }
 </script>
-
 </body>
 </html>
