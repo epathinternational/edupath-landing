@@ -36,42 +36,7 @@
   footer { padding: 3rem 5%; background: var(--teal); color: #fff; text-align: center; }
   .hidden { display: none; }
 
- /* ── CSS LOGO DESIGN ── */
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--teal);
-  }
-  .logo-icon {
-    width: 34px;
-    height: 34px;
-    background: var(--teal);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--white);
-    font-size: 1.1rem;
-    position: relative;
-    box-shadow: 0 4px 10px rgba(11, 92, 82, 0.2);
-  }
-  .logo-icon::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    right: -2px;
-    width: 12px;
-    height: 12px;
-    background: var(--gold);
-    border: 2px solid var(--white);
-    border-radius: 50%;
-  }
-
+ 
 
  /* ── NAV ── */
   nav {
@@ -427,53 +392,39 @@
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="logo">EduPath<span>.</span></div>
   <a href="#form-section" class="nav-cta">Register Interest</a>
 </nav>
 
-<!-- HERO -->
 <section class="hero" id="form-section">
 
-  <!-- Left: Brand -->
   <div class="hero-left">
     <p class="eyebrow">Trusted by 50,000+ Students</p>
     <h1 class="hero-heading">
-      Your Dream Degree,<br>
-      <em>Any Country.</em>
+      Your Gateway to Global Education<br>
+      <em>Starts Here</em>
     </h1>
     <p class="hero-sub">
-      From our Education Fairs across India to your university admission abroad — we guide every step of your journey to global education.
+      Discover top universities, expert counseling, and international career pathways, all in one place with EduPath.
     </p>
-    <div class="stats-row">
-      <div class="stat-item">
-        <div class="stat-num">15+</div>
-        <div class="stat-label">Years of Fairs</div>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat-item">
-        <div class="stat-num">50K+</div>
-        <div class="stat-label">Students Guided</div>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat-item">
-        <div class="stat-num">30+</div>
-        <div class="stat-label">Countries</div>
-      </div>
+    
+    <h1 class="hero-heading">Register for  <em>Free Counselling</em><br>Book Your Spot at  <em>EduPath</em></h1>
+    <p class="hero-sub">Expert guidance from India's premier education consultants to the world's top universities.</p>
+    <div style="display:flex; gap:40px;">
+      <div><h3 style="font-size:2.5rem;">50K+</h3><p>Students</p></div>
+      <div><h3 style="font-size:2.5rem;">30+</h3><p>Countries</p></div>
+      <div><h3 style="font-size:2.5rem;">800+</h3><p>Universities</p></div>
     </div>
   </div>
-
-  <!-- Right: Form -->
+  
   <div class="hero-right">
-
     <div id="form-wrapper">
       <div class="form-header">
         <h2 class="form-title">Find Your Ideal Program</h2>
         <p class="form-sub">Takes less than 90 seconds. A counsellor will reach out within 24 hours.</p>
       </div>
 
-      <!-- Progress -->
       <div class="progress-bar">
         <div class="progress-step active" id="pb-1"></div>
         <div class="progress-step" id="pb-2"></div>
@@ -481,7 +432,6 @@
         <div class="progress-step" id="pb-4"></div>
       </div>
 
-      <!-- STEP 1: Level -->
       <div class="step visible" id="step-1">
         <p class="step-label">Step 1 of 4 &mdash; Study Level</p>
         <h3 style="font-family:'Playfair Display',serif; font-size:1.15rem; margin-bottom:0.4rem;">What level are you planning to study?</h3>
@@ -503,7 +453,6 @@
         </div>
       </div>
 
-      <!-- STEP 2: Course -->
       <div class="step" id="step-2">
         <p class="step-label">Step 2 of 4 &mdash; Field of Study</p>
         <h3 style="font-family:'Playfair Display',serif; font-size:1.15rem; margin-bottom:0.4rem;">Which field interests you most?</h3>
@@ -552,7 +501,6 @@
         </div>
       </div>
 
-      <!-- STEP 3: Country -->
       <div class="step" id="step-3">
         <p class="step-label">Step 3 of 4 &mdash; Destination</p>
         <h3 style="font-family:'Playfair Display',serif; font-size:1.15rem; margin-bottom:0.4rem;">Where do you dream of studying?</h3>
@@ -621,7 +569,6 @@
         </div>
       </div>
 
-      <!-- STEP 4: Contact -->
       <div class="step" id="step-4">
         <p class="step-label">Step 4 of 4 &mdash; Your Details</p>
         <h3 style="font-family:'Playfair Display',serif; font-size:1.15rem; margin-bottom:0.4rem;">Almost there! How do we reach you?</h3>
@@ -630,29 +577,28 @@
         <div class="fields-row">
           <div class="field-group">
             <label class="field-label" for="f-name">Full Name *</label>
-            <input class="field-input" type="text" id="f-name" placeholder="Priya Sharma">
+            <input class="field-input" type="text" id="f-name" >
             <div class="field-error" id="err-name">Please enter your name</div>
           </div>
           <div class="field-group">
             <label class="field-label" for="f-phone">Mobile Number *</label>
-            <input class="field-input" type="tel" id="f-phone" placeholder="+91 98765 43210">
+            <input class="field-input" type="tel" id="f-phone" >
             <div class="field-error" id="err-phone">Please enter a valid number</div>
           </div>
         </div>
         <div class="field-group">
           <label class="field-label" for="f-email">Email Address *</label>
-          <input class="field-input" type="email" id="f-email" placeholder="priya@example.com">
+          <input class="field-input" type="email" id="f-email" >
           <div class="field-error" id="err-email">Please enter a valid email</div>
         </div>
         <div class="field-group">
           <label class="field-label" for="f-city">Your City</label>
-          <input class="field-input" type="text" id="f-city" placeholder="Hyderabad">
+          <input class="field-input" type="text" id="f-city" >
         </div>
         <div class="field-group">
           <label class="field-label" for="f-intake">Preferred Intake Year</label>
           <select class="field-input" id="f-intake">
             <option value="">— Select year —</option>
-            <option>2025</option>
             <option>2026</option>
             <option>2027</option>
             <option>Still exploring</option>
@@ -664,22 +610,85 @@
           <button class="btn-submit" onclick="submitForm()">🎓 Submit My Interest</button>
         </div>
       </div>
-    </div><!-- end form-wrapper -->
-
-    <!-- SUCCESS -->
-    <div class="success-screen" id="success-screen">
+    </div><div class="success-screen" id="success-screen">
       <div class="success-icon">🎓</div>
       <h2 class="success-title">You're on your way!</h2>
       <p class="success-sub">Thank you, <strong id="success-name">friend</strong>. Our counsellor will reach out to you within 24 hours to discuss your dream abroad.</p>
       <div class="summary-tags" id="summary-tags"></div>
       <p style="font-size:0.82rem; color:var(--ink-muted); margin-top:0.5rem;">Check your email for a confirmation.</p>
     </div>
+    </div></section>
 
-  </div><!-- end hero-right -->
-
+<section style="padding: 4rem 5%; background: var(--white); text-align: center; border-bottom: 1px solid var(--border);">
+  <p class="section-eyebrow">Direct Contact</p>
+  <h2 class="section-title" style="margin-bottom: 1rem;">Have a question? Reach out to us directly</h2>
+  <p style="font-size: 1rem; color: var(--ink-soft); margin-bottom: 1.5rem;">For those who prefer email, you can reach out directly to our help desk.</p>
+  <a href="mailto:epathinternational@gmail.com" style="font-size: 1.2rem; color: var(--teal); font-weight: 500; text-decoration: none;">epathinternational@gmail.com</a>
 </section>
 
-<!-- WHY SECTION -->
+<section style="padding: 5rem 5%; background: #fff; text-align: center;">
+  <p class="section-eyebrow">About Us</p>
+  <h2 class="section-title" style="margin-bottom: 2rem;">Who We Are</h2>
+  <div style="max-width: 750px; margin: 0 auto;">
+    <p style="font-size: 1rem; color: var(--ink-soft); line-height: 1.8; margin-bottom: 2rem;">
+      EduPath is dedicated to guiding students toward the right international education opportunities.
+    </p>
+    
+    <h3 style="font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--ink); margin-bottom: 1.5rem;">We connect ambitious students with:</h3>
+    
+    <div style="display: flex; flex-direction: column; gap: 1rem; align-items: center; margin-bottom: 2.5rem;">
+      <div style="background: var(--cream); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 2rem; width: 100%; max-width: 400px;">
+        <p style="font-size: 0.95rem; font-weight: 500; color: var(--ink);">🏛️ Top universities worldwide</p>
+      </div>
+      <div style="background: var(--cream); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 2rem; width: 100%; max-width: 400px;">
+        <p style="font-size: 0.95rem; font-weight: 500; color: var(--ink);">📚 Career-focused courses</p>
+      </div>
+      <div style="background: var(--cream); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 2rem; width: 100%; max-width: 400px;">
+        <p style="font-size: 0.95rem; font-weight: 500; color: var(--ink);">🧑‍🏫 Trusted education experts</p>
+      </div>
+    </div>
+    
+    <div style="background: var(--gold-light); padding: 1.5rem; border-radius: 10px; border: 1px solid rgba(200,147,42,0.2);">
+      <p style="font-size: 1rem; font-weight: 500; color: var(--ink);"><strong>Our mission is simple:</strong> Make global education accessible, transparent, and achievable.</p>
+    </div>
+  </div>
+</section>
+
+<section style="padding: 5rem 5%; background: var(--cream); text-align: center;">
+  <p class="section-eyebrow">Your Journey</p>
+  <h2 class="section-title" style="margin-bottom: 3.5rem;">How It Works?</h2>
+  
+  <div style="display: flex; gap: 1rem; justify-content: center; align-items: center; flex-wrap: wrap; max-width: 1100px; margin: 0 auto;">
+    
+    <div style="background: #fff; padding: 1.5rem; border-radius: var(--radius); border: 1px solid var(--border); text-align: center; flex: 1; min-width: 220px;">
+      <div style="font-weight: 500; color: var(--teal); font-size: 0.9rem; margin-bottom: 0.5rem;">STEP 1</div>
+      <h3 style="font-size: 1rem; font-weight: 500; color: var(--ink);">Register Online</h3>
+    </div>
+    
+    <div style="font-size: 1.5rem; color: var(--gold); font-weight: bold;">&gt;</div>
+    
+    <div style="background: #fff; padding: 1.5rem; border-radius: var(--radius); border: 1px solid var(--border); text-align: center; flex: 1; min-width: 220px;">
+      <div style="font-weight: 500; color: var(--teal); font-size: 0.9rem; margin-bottom: 0.5rem;">STEP 2</div>
+      <h3 style="font-size: 1rem; font-weight: 500; color: var(--ink);">Get a Call from Our Counselor</h3>
+    </div>
+    
+    <div style="font-size: 1.5rem; color: var(--gold); font-weight: bold;">&gt;</div>
+    
+    <div style="background: #fff; padding: 1.5rem; border-radius: var(--radius); border: 1px solid var(--border); text-align: center; flex: 1; min-width: 220px;">
+      <div style="font-weight: 500; color: var(--teal); font-size: 0.9rem; margin-bottom: 0.5rem;">STEP 3</div>
+      <h3 style="font-size: 1rem; font-weight: 500; color: var(--ink);">Attend Edu Fair / Counseling Session</h3>
+    </div>
+    
+    <div style="font-size: 1.5rem; color: var(--gold); font-weight: bold;">&gt;</div>
+    
+    <div style="background: #fff; padding: 1.5rem; border-radius: var(--radius); border: 1px solid var(--border); text-align: center; flex: 1; min-width: 220px;">
+      <div style="font-weight: 500; color: var(--teal); font-size: 0.9rem; margin-bottom: 0.5rem;">STEP 4</div>
+      <h3 style="font-size: 1rem; font-weight: 500; color: var(--ink);">Start Your Study Abroad Journey</h3>
+    </div>
+    
+  </div>
+</section>
+
 <section class="why-section">
   <p class="section-eyebrow">Why EduPath</p>
   <h2 class="section-title">From India's Largest Education Fairs to Your Abroad Admission</h2>
@@ -702,7 +711,6 @@
   </div>
 </section>
 
-<!-- COUNTRIES STRIP -->
 <section class="countries-section">
   <p class="section-eyebrow">Destinations We Cover</p>
   <h2 class="section-title" style="color:var(--white);">Study in 30+ Countries Worldwide</h2>
@@ -722,14 +730,12 @@
   </div>
 </section>
 
-<!-- BOTTOM CTA -->
 <section class="cta-section">
   <h2 class="cta-title">Still have questions? Let's talk.</h2>
   <p class="cta-sub">Our counsellors hold free, no-obligation consultations every day.</p>
   <a href="#form-section" class="btn-cta-big">Register Your Interest Free →</a>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-logo">EduPath<span>.</span></div>
   <p>© 2025 EduPath Education Consultants. All rights reserved.</p>
