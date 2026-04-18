@@ -186,141 +186,6 @@
   <a href="#form-section" class="nav-cta">Register for Free Counseling</a>
 </nav>
 
-<section class="hero" id="form-section">
-  <div class="hero-left">
-    <span class="section-tag" style="color: var(--gold-light)">Trusted Global Partners</span>
-    <h1 class="hero-heading">Your Gateway to Global Education Starts Here</h1>
-    <p class="hero-sub">Discover top universities, expert counseling, and international career pathways, all in one place with EduPath.</p>
-    
-    <div class="stats-row">
-      <div><div class="stat-num">50K+</div><div class="stat-label">Students</div></div>
-      <div><div class="stat-num">30+</div><div class="stat-label">Countries</div></div>
-      <div><div class="stat-num">800+</div><div class="stat-label">Universities</div></div>
-    </div>
-  </div>
-
-  <div class="hero-right">
-    <div id="form-wrapper">
-      <div class="form-header">
-        <h2 class="form-title">Book Your Spot at EduPath</h2>
-        <p style="color: var(--ink-muted)">Turn your study abroad dream into a clear roadmap.</p>
-      </div>
-
-      <div class="progress-bar">
-        <div class="progress-step active" id="pb-1"></div>
-        <div class="progress-step" id="pb-2"></div>
-        <div class="progress-step" id="pb-3"></div>
-        <div class="progress-step" id="pb-4"></div>
-      </div>
-
-      <div class="step visible" id="step-1">
-        <h3 style="margin-bottom: 1.5rem;">Select Study Level</h3>
-        <div class="option-grid cols-2">
-          <div class="option-card" data-step="1" data-value="Undergraduate (UG)" onclick="selectOption(this)">
-            <strong>Undergraduate</strong>
-            <p style="font-size: 0.8rem; color: var(--ink-muted)">Bachelor's Degrees</p>
-          </div>
-          <div class="option-card" data-step="1" data-value="Postgraduate (PG)" onclick="selectOption(this)">
-            <strong>Postgraduate</strong>
-            <p style="font-size: 0.8rem; color: var(--ink-muted)">Master's & PhD</p>
-          </div>
-        </div>
-        <button class="btn-next" id="btn-next-1" onclick="goStep(2)" disabled>Continue</button>
-      </div>
-
-      <div class="step" id="step-2">
-        <h3 style="margin-bottom: 1.5rem;">Field of Interest</h3>
-        <div class="option-grid cols-3">
-          <div class="option-card" data-step="2" data-value="Engineering" onclick="selectOption(this, true)">Engineering</div>
-          <div class="option-card" data-step="2" data-value="Business" onclick="selectOption(this, true)">Business</div>
-          <div class="option-card" data-step="2" data-value="Medicine" onclick="selectOption(this, true)">Medicine</div>
-          <div class="option-card" data-step="2" data-value="Arts" onclick="selectOption(this, true)">Arts</div>
-          <div class="option-card" data-step="2" data-value="IT" onclick="selectOption(this, true)">IT & AI</div>
-          <div class="option-card" data-step="2" data-value="Law" onclick="selectOption(this, true)">Law</div>
-        </div>
-        <button class="btn-next" id="btn-next-2" onclick="goStep(3)" disabled>Continue</button>
-        <button class="btn-back" onclick="goStep(1)">Back</button>
-      </div>
-
-      <div class="step" id="step-3">
-        <h3 style="margin-bottom: 1.5rem;">Preferred Destinations</h3>
-        <div class="option-grid cols-2">
-          <div class="country-card" data-step="3" data-value="USA" onclick="selectOption(this, true)">🇺🇸 USA</div>
-          <div class="country-card" data-step="3" data-value="UK" onclick="selectOption(this, true)">🇬🇧 UK</div>
-          <div class="country-card" data-step="3" data-value="Canada" onclick="selectOption(this, true)">🇨🇦 Canada</div>
-          <div class="country-card" data-step="3" data-value="Australia" onclick="selectOption(this, true)">🇦🇺 Australia</div>
-        </div>
-        <button class="btn-next" id="btn-next-3" onclick="goStep(4)" disabled>Almost There</button>
-        <button class="btn-back" onclick="goStep(2)">Back</button>
-      </div>
-
-      <div class="step" id="step-4">
-        <h3 style="margin-bottom: 1.5rem;">Your Contact Details</h3>
-        <input type="text" id="f-name" class="field-input" placeholder="Full Name">
-        <input type="tel" id="f-phone" class="field-input" placeholder="Mobile Number">
-        <input type="email" id="f-email" class="field-input" placeholder="Email Address">
-        <input type="text" id="f-city" class="field-input" placeholder="Your City">
-        <select id="f-intake" class="field-input">
-            <option value="">Preferred Intake</option>
-            <option>2025</option>
-            <option>2026</option>
-        </select>
-        <button class="btn-submit" onclick="submitForm()">Submit My Interest</button>
-        <button class="btn-back" onclick="goStep(3)">Back</button>
-      </div>
-    </div>
-
-    <div id="success-screen" style="display:none; text-align:center;">
-        <h2 class="form-title" style="color: var(--teal)">Success!</h2>
-        <p>Thank you <span id="success-name"></span>. Our expert team at EduPath will contact you shortly.</p>
-    </div>
-  </div>
-</section>
-
-<section class="content-block">
-    <div class="who-we-are-grid">
-        <div>
-            <span class="section-tag">Who We Are</span>
-            <h2 class="section-title" style="text-align: left; margin-bottom: 1.5rem;">Dedicated to Your Global Success</h2>
-            <p>EduPath, the global education division of E3 Events & Entertainments Pvt Ltd, is dedicated to guiding students toward the right international education opportunities.</p>
-            <ul style="margin-top: 1.5rem; text-align: left; list-style: none;">
-                <li style="margin-bottom: 0.8rem;">✓ Top universities worldwide</li>
-                <li style="margin-bottom: 0.8rem;">✓ Career-focused courses</li>
-                <li style="margin-bottom: 0.8rem;">✓ Trusted education experts</li>
-            </ul>
-        </div>
-        <div class="how-it-works">
-            <span class="section-tag">Process</span>
-            <h3>How It Works?</h3>
-            <div class="steps-row">
-                <div class="step-item"><div class="step-num">1</div><p>Register Online</p></div>
-                <div class="step-item"><div class="step-num">2</div><p>Get a Call</p></div>
-                <div class="step-item"><div class="step-num">3</div><p>Attend Fair</p></div>
-                <div class="step-item"><div class="step-num">4</div><p>Fly Abroad</p></div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<footer>
-  <div class="footer-flex">
-    <div>
-      <a href="#" class="logo" style="color: #fff; margin-bottom: 1rem;">
-        <div class="logo-icon">E</div>
-        EduPath
-      </a>
-      <p style="color: rgba(255,255,255,0.5); font-size: 0.8rem;">Making global education accessible and achievable.</p>
-    </div>
-    <div>
-      <p style="margin-bottom: 0.5rem;">Quick Connect</p>
-      <a href="mailto:epathinternational@gmail.com" class="contact-link">epathinternational@gmail.com</a>
-    </div>
-  </div>
-  <p style="text-align: center; font-size: 0.75rem; color: rgba(255,255,255,0.3); border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem;">
-    © 2025 EduPath Education Consultants. All rights reserved.
-  </p>
-</footer>
-
 <script>
   /* GOOGLE FORMS CONFIG */
   const GOOGLE_FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSeg7Kndf1mpmCwdmFfq6nvZ5G3-zKgmUz-UVqWadZ9QG9jJ5g/formResponse';
@@ -542,11 +407,16 @@
 
 <section class="hero" id="form-area">
   <div class="hero-left">
+    <span class="section-tag" style="color: var(--gold-light)">Trusted Global Partners</span>
+    <h1 class="hero-heading">Your Gateway to Global Education Starts Here</h1>
+    <p class="hero-sub">Discover top universities, expert counseling, and international career pathways, all in one place with EduPath.</p>
+    
     <h1 class="hero-heading">Study <span>Global.</span><br>Live Bold.</h1>
     <p class="hero-sub">Expert guidance from India's premier education consultants to the world's top universities.</p>
     <div style="display:flex; gap:40px;">
       <div><h3 style="font-size:2.5rem;">50K+</h3><p>Students</p></div>
       <div><h3 style="font-size:2.5rem;">30+</h3><p>Countries</p></div>
+      <div><h3 style="font-size:2.5rem;">800+</h3><p>Universities</p></div>
     </div>
   </div>
 
@@ -621,7 +491,30 @@
     </div>
   </div>
 </section>
-
+<section class="content-block">
+    <div class="who-we-are-grid">
+        <div>
+            <span class="section-tag">Who We Are</span>
+            <h2 class="section-title" style="text-align: left; margin-bottom: 1.5rem;">Dedicated to Your Global Success</h2>
+            <p>EduPath is dedicated to guiding students toward the right international education opportunities.</p>
+            <ul style="margin-top: 1.5rem; text-align: left; list-style: none;">
+                <li style="margin-bottom: 0.8rem;">✓ Top universities worldwide</li>
+                <li style="margin-bottom: 0.8rem;">✓ Career-focused courses</li>
+                <li style="margin-bottom: 0.8rem;">✓ Trusted education experts</li>
+            </ul>
+        </div>
+        <div class="how-it-works">
+            <span class="section-tag">Process</span>
+            <h3>How It Works?</h3>
+            <div class="steps-row">
+                <div class="step-item"><div class="step-num">1</div><p>Register Online</p></div>
+                <div class="step-item"><div class="step-num">2</div><p>Get a Call</p></div>
+                <div class="step-item"><div class="step-num">3</div><p>Attend Fair</p></div>
+                <div class="step-item"><div class="step-num">4</div><p>Fly Abroad</p></div>
+            </div>
+        </div>
+    </div>
+</section>
 <section class="section-pad">
   <h2 class="section-title">Why EduPath</h2>
   <div class="features">
@@ -642,17 +535,39 @@
     </div>
   </div>
 </section>
-
+  
+<!-- WHY SECTION -->
+<section class="why-section">
+  <h2 class="section-title">From India's Largest Education Fairs to Your Abroad Admission</h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-num">01</div>
+      <div class="feature-name">Personalised Counselling</div>
+      <div class="feature-desc">One-on-one sessions with certified counsellors who understand Indian student needs and match you to the right course and university.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">02</div>
+      <div class="feature-name">End-to-End Support</div>
+      <div class="feature-desc">From shortlisting universities to SOP reviews, visa guidance, accommodation, and pre-departure briefings — we're with you every step.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">03</div>
+      <div class="feature-name">Scholarship Matching</div>
+      <div class="feature-desc">We actively connect students with scholarships, grants, and financial aid opportunities at partner universities across 30+ countries.</div>
+    </div>
+  </div>
+</section>
+  
 <section class="section-pad destinations">
   <h2 class="section-title" style="color:white">Destinations We Cover</h2>
   <div class="pill-container">
-    <div class="pill">🇺🇸 USA</div>
-    <div class="pill">🇬🇧 UK</div>
-    <div class="pill">🇨🇦 Canada</div>
-    <div class="pill">🇦🇺 Australia</div>
-    <div class="pill">🇩🇪 Germany</div>
-    <div class="pill">🇮🇪 Ireland</div>
-    <div class="pill">🇳🇱 Netherlands</div>
+    <div class="pill">USA</div>
+    <div class="pill">UK</div>
+    <div class="pill">Canada</div>
+    <div class="pill">Australia</div>
+    <div class="pill">Germany</div>
+    <div class="pill">Ireland</div>
+    <div class="pill">Netherlands</div>
     <div class="pill">🇫🇷 France</div>
   </div>
 </section>
@@ -662,13 +577,27 @@
   <p class="hero-sub" style="color:var(--ink-soft); margin: 0 auto 2rem;">Our team is ready to help you navigate the complexities of international admissions.</p>
   <div style="display:flex; flex-direction:column; gap:20px; align-items:center;">
     <a href="#form-area" class="nav-cta" style="font-size:1.5rem; padding: 1.5rem 3rem;">Register Your Interest Free →</a>
-    <p>Or email us directly at: <a href="mailto:hello@edupath.com" class="mail-link">hello@edupath.com</a></p>
+    <p>Or email us directly at: <a href="mailto:hello@edupath.com" class="mail-link">epathinternational@gmail.com</a></p>
   </div>
 </section>
 
 <footer style="padding:4rem; background:var(--ink); color:white; text-align:center;">
-  <p>© 2026 EduPath Consultants. Global Excellence in Education.</p>
-</footer>
+
+  <div class="footer-flex">
+    <div>
+      <a href="#" class="logo" style="color: #fff; margin-bottom: 1rem;">
+        <div class="logo-icon">E</div>
+        EduPath
+      </a>
+      <p style="color: rgba(255,255,255,0.5); font-size: 0.8rem;">Making global education accessible and achievable.</p>
+    </div>
+    <div>
+      <p style="margin-bottom: 0.5rem;">Quick Connect</p>
+      <a href="mailto:epathinternational@gmail.com" class="contact-link">epathinternational@gmail.com</a>
+    </div>
+  </div>
+  <p>© 2026 EduPath Consultants. All Rights Reserved.</p>
+</footer>  
 
 <script>
   let formData = { level: '', field: '', country: '' };
