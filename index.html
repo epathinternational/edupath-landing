@@ -842,18 +842,29 @@
 
     const btn = document.querySelector('.btn-submit');
     const originalText = btn.textContent;
-    btn.textContent = 'Submitting…';
+    btn.textContent = 'Submitting...';
     btn.disabled = true;
 
+    // 1. Collect values from inputs
     const name     = document.getElementById('f-name').value.trim();
     const phone    = document.getElementById('f-phone').value.trim();
     const email    = document.getElementById('f-email').value.trim();
     const city     = document.getElementById('f-city').value.trim();
     const intake   = document.getElementById('f-intake').value;
     
+    // 2. Format Multiple Selections (Reverting to the comma-separated string that worked before)
     const otherCourse = document.getElementById('f-other-course').value.trim();
     const otherCountry = document.getElementById('f-other-country').value.trim();
 
+    const coursesArray = [...state.step2];
+    if (otherCourse) coursesArray.push(otherCourse);
+    const courses = coursesArray.join(', ');
+
+    const countriesArray = [...state.step3];
+    if (otherCountry) countriesArray.push(otherCountry);
+    const countries = countriesArray.join(', ');
+
+    // 3. Prepare data using URLSearchParams (Ensures correct form-encoding)
     const params = new URLSearchParams();
     params.append(FIELD_IDS.name,      name);
     params.append(FIELD_IDS.phone,     phone);
@@ -861,28 +872,26 @@
     params.append(FIELD_IDS.city,      city);
     params.append(FIELD_IDS.intake,    intake);
     params.append(FIELD_IDS.level,     state.step1 || '');
-
-    // Correctly handle Multiple Selections for Checkboxes
-    state.step2.forEach(val => params.append(FIELD_IDS.courses, val));
-    if (otherCourse) params.append(FIELD_IDS.courses, otherCourse);
-
-    state.step3.forEach(val => params.append(FIELD_IDS.countries, val));
-    if (otherCountry) params.append(FIELD_IDS.countries, otherCountry);
+    params.append(FIELD_IDS.courses,   courses);
+    params.append(FIELD_IDS.countries, countries);
 
     try {
+      /* CRITICAL: We use 'no-cors' mode and NO custom headers. 
+         Adding 'Content-Type' manually with no-cors often triggers the "Blocked: Origin" error.
+         The browser will automatically set the correct header for URLSearchParams.
+      */
       await fetch(GOOGLE_FORM_ACTION, { 
         method: 'POST', 
         mode: 'no-cors', 
-        // Note: Content-Type header is set automatically by the browser when passing URLSearchParams
         body: params 
       });
       
-      // Success Screen Logic
+      // Success UI Logic
       document.getElementById('success-name').textContent = name.split(' ')[0];
       const tags = document.getElementById('summary-tags');
       tags.innerHTML = '';
       
-      const allSelections = [state.step1, ...state.step2, ...state.step3].filter(Boolean);
+      const allSelections = [state.step1, ...coursesArray, ...countriesArray].filter(Boolean);
       allSelections.forEach(v => {
         const t = document.createElement('span');
         t.className = 'tag'; t.textContent = v;
@@ -894,7 +903,7 @@
 
     } catch (e) {
       console.error('Submission Error:', e);
-      alert('There was an issue submitting the form. Please check your connection.');
+      alert('Connection error. Please try again.');
       btn.textContent = originalText;
       btn.disabled = false;
     }
