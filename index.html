@@ -495,12 +495,6 @@
             <div class="option-name">Hospitality & Tourism</div>
           </div>
         </div>
-        
-        <div class="field-group" style="margin-top: 1rem;">
-          <label class="field-label" for="f-other-course">Other field of study (if not listed)</label>
-          <input class="field-input" type="text" id="f-other-course" placeholder="Enter your field" oninput="updateNextBtns()">
-        </div>
-
         <div class="btn-row">
           <button class="btn-back" onclick="goStep(1)">← Back</button>
           <button class="btn-next" id="btn-next-2" onclick="goStep(3)" disabled>Continue →</button>
@@ -569,12 +563,6 @@
             </div>
           </div>
         </div>
-
-        <div class="field-group" style="margin-top: 1rem;">
-          <label class="field-label" for="f-other-country">Other destination (if not listed)</label>
-          <input class="field-input" type="text" id="f-other-country" placeholder="Enter country name" oninput="updateNextBtns()">
-        </div>
-
         <div class="btn-row">
           <button class="btn-back" onclick="goStep(2)">← Back</button>
           <button class="btn-next" id="btn-next-3" onclick="goStep(4)" disabled>Continue →</button>
@@ -589,28 +577,29 @@
         <div class="fields-row">
           <div class="field-group">
             <label class="field-label" for="f-name">Full Name *</label>
-            <input class="field-input" type="text" id="f-name">
+            <input class="field-input" type="text" id="f-name" placeholder="Priya Sharma">
             <div class="field-error" id="err-name">Please enter your name</div>
           </div>
           <div class="field-group">
             <label class="field-label" for="f-phone">Mobile Number *</label>
-            <input class="field-input" type="tel" id="f-phone">
+            <input class="field-input" type="tel" id="f-phone" placeholder="+91 98765 43210">
             <div class="field-error" id="err-phone">Please enter a valid number</div>
           </div>
         </div>
         <div class="field-group">
           <label class="field-label" for="f-email">Email Address *</label>
-          <input class="field-input" type="email" id="f-email">
+          <input class="field-input" type="email" id="f-email" placeholder="priya@example.com">
           <div class="field-error" id="err-email">Please enter a valid email</div>
         </div>
         <div class="field-group">
           <label class="field-label" for="f-city">Your City</label>
-          <input class="field-input" type="text" id="f-city">
+          <input class="field-input" type="text" id="f-city" placeholder="Hyderabad">
         </div>
         <div class="field-group">
           <label class="field-label" for="f-intake">Preferred Intake Year</label>
           <select class="field-input" id="f-intake">
             <option value="">— Select year —</option>
+            <option>2025</option>
             <option>2026</option>
             <option>2027</option>
             <option>Still exploring</option>
@@ -780,12 +769,9 @@
   }
 
   function updateNextBtns() {
-    const otherCourse = document.getElementById('f-other-course').value.trim();
-    const otherCountry = document.getElementById('f-other-country').value.trim();
-
     document.getElementById('btn-next-1').disabled = !state.step1;
-    document.getElementById('btn-next-2').disabled = (state.step2.length === 0 && !otherCourse);
-    document.getElementById('btn-next-3').disabled = (state.step3.length === 0 && !otherCountry);
+    document.getElementById('btn-next-2').disabled = state.step2.length === 0;
+    document.getElementById('btn-next-3').disabled = state.step3.length === 0;
   }
 
   function goStep(n) {
@@ -849,17 +835,8 @@
     const email    = document.getElementById('f-email').value.trim();
     const city     = document.getElementById('f-city').value.trim();
     const intake   = document.getElementById('f-intake').value;
-    
-    const otherCourse = document.getElementById('f-other-course').value.trim();
-    const otherCountry = document.getElementById('f-other-country').value.trim();
-
-    let coursesList = [...state.step2];
-    if (otherCourse) coursesList.push(otherCourse);
-    const courses = coursesList.join(', ');
-
-    let countriesList = [...state.step3];
-    if (otherCountry) countriesList.push(otherCountry);
-    const countries = countriesList.join(', ');
+    const courses  = state.step2.join(', ');
+    const countries= state.step3.join(', ');
 
     const body = new FormData();
     body.append(FIELD_IDS.name,      name);
@@ -883,14 +860,11 @@
     document.getElementById('success-name').textContent = name.split(' ')[0];
     const tags = document.getElementById('summary-tags');
     tags.innerHTML = '';
-    
-    const allSelections = [state.step1, ...coursesList, ...countriesList].filter(Boolean);
-    allSelections.forEach(v => {
+    [state.step1, ...state.step2, ...state.step3].filter(Boolean).forEach(v => {
       const t = document.createElement('span');
       t.className = 'tag'; t.textContent = v;
       tags.appendChild(t);
     });
-    
     document.getElementById('form-wrapper').style.display = 'none';
     document.getElementById('success-screen').classList.add('visible');
   }
