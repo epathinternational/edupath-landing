@@ -841,6 +841,7 @@
     if (!validateContact()) return;
 
     const btn = document.querySelector('.btn-submit');
+    const originalText = btn.textContent;
     btn.textContent = 'Submitting…';
     btn.disabled = true;
 
@@ -853,6 +854,7 @@
     const otherCourse = document.getElementById('f-other-course').value.trim();
     const otherCountry = document.getElementById('f-other-country').value.trim();
 
+    // Combine manual inputs with selected cards
     let coursesList = [...state.step2];
     if (otherCourse) coursesList.push(otherCourse);
     const courses = coursesList.join(', ');
@@ -861,38 +863,48 @@
     if (otherCountry) countriesList.push(otherCountry);
     const countries = countriesList.join(', ');
 
-    const body = new FormData();
-    body.append(FIELD_IDS.name,      name);
-    body.append(FIELD_IDS.phone,     phone);
-    body.append(FIELD_IDS.email,     email);
-    body.append(FIELD_IDS.city,      city);
-    body.append(FIELD_IDS.intake,    intake);
-    body.append(FIELD_IDS.level,     state.step1 || '');
-    body.append(FIELD_IDS.courses,   courses);
-    body.append(FIELD_IDS.countries, countries);
+    // Use URLSearchParams instead of FormData to ensure application/x-www-form-urlencoded
+    const params = new URLSearchParams();
+    params.append(FIELD_IDS.name,      name);
+    params.append(FIELD_IDS.phone,     phone);
+    params.append(FIELD_IDS.email,     email);
+    params.append(FIELD_IDS.city,      city);
+    params.append(FIELD_IDS.intake,    intake);
+    params.append(FIELD_IDS.level,     state.step1 || '');
+    params.append(FIELD_IDS.courses,   courses);
+    params.append(FIELD_IDS.countries, countries);
 
     try {
-      /* Google Forms blocks CORS, so we use no-cors — the request
-         still lands in your Sheet even though we get an opaque response. */
-      await fetch(GOOGLE_FORM_ACTION, { method: 'POST', mode: 'no-cors', body });
-    } catch (e) {
-      /* Swallow network errors — opaque responses always throw in no-cors */
-    }
+      // The 'no-cors' mode is required because Google doesn't send CORS headers back.
+      // The data is still sent, but we can't read the response.
+      await fetch(GOOGLE_FORM_ACTION, { 
+        method: 'POST', 
+        mode: 'no-cors', 
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: params 
+      });
+      
+      // Success Logic
+      document.getElementById('success-name').textContent = name.split(' ')[0];
+      const tags = document.getElementById('summary-tags');
+      tags.innerHTML = '';
+      
+      const allSelections = [state.step1, ...coursesList, ...countriesList].filter(Boolean);
+      allSelections.forEach(v => {
+        const t = document.createElement('span');
+        t.className = 'tag'; t.textContent = v;
+        tags.appendChild(t);
+      });
+      
+      document.getElementById('form-wrapper').style.display = 'none';
+      document.getElementById('success-screen').classList.add('visible');
 
-    /* Show success regardless (no-cors gives no status to check) */
-    document.getElementById('success-name').textContent = name.split(' ')[0];
-    const tags = document.getElementById('summary-tags');
-    tags.innerHTML = '';
-    
-    const allSelections = [state.step1, ...coursesList, ...countriesList].filter(Boolean);
-    allSelections.forEach(v => {
-      const t = document.createElement('span');
-      t.className = 'tag'; t.textContent = v;
-      tags.appendChild(t);
-    });
-    
-    document.getElementById('form-wrapper').style.display = 'none';
-    document.getElementById('success-screen').classList.add('visible');
+    } catch (e) {
+      console.error('Submission Error:', e);
+      alert('There was an issue submitting the form. Please check your connection.');
+      btn.textContent = originalText;
+      btn.disabled = false;
+    }
   }
 </script>
 </body>
